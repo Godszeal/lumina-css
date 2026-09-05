@@ -8,7 +8,7 @@ Run `pnpm install` and then `pnpm dev`. The documentation is a client-only React
 
 ## CDN assets
 
-The current distribution version is `0.3.0`.
+The current distribution version is `0.4.0`.
 
 ```html
 <link rel="stylesheet" href="/lumina.css" />
@@ -35,12 +35,29 @@ A stable public CDN URL cannot be created from a local sandbox alone. The assets
 
 1. Create a public GitHub repository for the distribution files, or publish the package to npm.
 2. Place `lumina.css` and `lumina.js` in the repository root or a versioned `dist/` directory.
-3. Tag a release such as `v0.3.0`.
+3. Tag a release such as `v0.4.0`.
 4. Use jsDelivr with the tagged release:
 
 ```text
-https://cdn.jsdelivr.net/gh/<public-owner>/<public-repo>@v0.3.0/lumina.css
-https://cdn.jsdelivr.net/gh/<public-owner>/<public-repo>@v0.3.0/lumina.js
+https://cdn.jsdelivr.net/gh/<public-owner>/<public-repo>@v0.4.0/lumina.css
+https://cdn.jsdelivr.net/gh/<public-owner>/<public-repo>@v0.4.0/lumina.js
 ```
 
-The repository must be public for jsDelivr to fetch it. The current public release is `v0.3.0` in `Godszeal/lumina-css`.
+The repository must be public for jsDelivr to fetch it. The current public release is `v0.4.0` in `Godszeal/lumina-css`.
+
+
+## v0.4.0 improvements
+
+Lumina now uses a neutral system-font stack by default. Custom display and monospace fonts are optional overrides through `--lu-font-display` and `--lu-font-mono`; the CDN no longer requires a web-font request.
+
+The framework includes opt-in animation utilities such as `lu-animate-fade`, `lu-animate-rise`, `lu-animate-pop`, `lu-animate-shimmer`, `lu-hover-lift`, and `lu-press`. Motion uses transform and opacity, includes short timing tokens, and is disabled or reduced under `prefers-reduced-motion: reduce`.
+
+Dark mode can persist through the optional script. Add a toggle with `data-lu-theme-toggle`, or set `data-lu-theme="dark"` on the root element. The runtime stores the preference in `localStorage` under `lu-theme` and falls back to the operating system preference when no saved choice exists.
+
+The grid background is no longer required. Use `.lu-grid-bg` or `.lu-grid-paper` only when the texture is wanted, add `.lu-no-grid` to remove it, or use `data-lu-grid="off"` on the root element. A toggle can use `data-lu-grid-toggle` and the runtime will persist the choice under `lu-grid`.
+
+The icon catalog now includes dashboard and form families such as `dashboard`, `chart`, `wallet`, `cart`, `filter`, `sort`, `edit`, `trash`, `eye`, `eyeOff`, `mail`, `message`, `help`, `info`, `warning`, `success`, `clock`, `logout`, and `refresh`. These are original Lumina SVG symbols, not copied Font Awesome assets.
+
+## Font Awesome comparison and icon strategy
+
+Font Awesome 7.3.1 lists 2,163 Free icons and 65,928 Pro icons across 36 styles, 17 packs, and 68 categories. Lumina uses that broad category coverage as a planning reference, but it does not copy Font Awesome Pro paths or redistribute Font Awesome files. Font Awesome Free’s official license applies CC BY 4.0 to SVG/JS icons, SIL OFL 1.1 to font files, and MIT to code; attribution requirements and brand-trademark restrictions still apply. See `research/font-awesome-findings.md` for the source links and the recommended original Lumina categories.

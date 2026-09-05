@@ -64,10 +64,8 @@
   html { scroll-behavior: smooth; }
   body {
     @apply bg-background text-foreground;
-    font-family: "DM Sans", sans-serif;
-    background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px);
-    background-size: 44px 44px;
-    background-position: -1px -1px;
+    font-family: var(--lu-font-sans, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+    background-image: none;
   }
   button, a { -webkit-tap-highlight-color: transparent; }
   button:not(:disabled), a[href], [role="button"] { cursor: pointer; }
@@ -82,6 +80,11 @@
   .lu-kicker { font: 600 10px/1 "IBM Plex Mono", monospace; letter-spacing: .16em; text-transform: uppercase; color: var(--muted-foreground); }
   .lu-rule { height: 1px; background: var(--line); }
   .lu-grid-paper { background-color: var(--paper-strong); background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px); background-size: 22px 22px; }
+  .lu-grid-paper.lu-no-grid, [data-lu-grid="off"] .lu-grid-paper { background-image: none; }
+  .lu-no-grid { background-image: none !important; }
+  .lu-font-sans { font-family: var(--lu-font-sans, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif); }
+  .lu-font-display { font-family: var(--lu-font-display, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif); }
+  .lu-font-mono { font-family: var(--lu-font-mono, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace); }
   .lu-shadow { box-shadow: 10px 10px 0 rgba(17,24,39,.06); }
   .lu-neu-icon { display: inline-flex; align-items: center; justify-content: center; width: 3.1rem; height: 3.1rem; border: 1px solid var(--line); border-radius: 1rem; background: color-mix(in srgb, var(--paper-strong) 82%, transparent); box-shadow: inset 2px 2px 4px rgba(255,255,255,.75), 5px 5px 10px rgba(17,24,39,.08), -3px -3px 8px rgba(255,255,255,.38); }
   .dark .lu-neu-icon { box-shadow: inset 2px 2px 4px rgba(255,255,255,.04), 5px 5px 10px rgba(0,0,0,.22), -3px -3px 8px rgba(255,255,255,.025); }

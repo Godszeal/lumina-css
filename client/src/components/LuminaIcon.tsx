@@ -1,7 +1,7 @@
 /* Editorial Utility direction — custom Lumina symbols use a soft, geometric SVG vocabulary instead of a generic icon font. */
 import type { ReactNode, SVGProps } from "react";
 
-type IconName = "spark" | "grid" | "layers" | "code" | "palette" | "motion" | "accessibility" | "arrow" | "check" | "menu" | "close" | "sun" | "moon" | "home" | "user" | "settings" | "bell" | "heart" | "star" | "lock" | "calendar" | "download" | "upload" | "globe" | "github" | "command" | "folder" | "database" | "monitor" | "tablet" | "phone" | "plus" | "minus" | "search";
+type IconName = "spark" | "grid" | "layers" | "code" | "palette" | "motion" | "accessibility" | "arrow" | "check" | "menu" | "close" | "sun" | "moon" | "home" | "user" | "settings" | "bell" | "heart" | "star" | "lock" | "calendar" | "download" | "upload" | "globe" | "github" | "command" | "folder" | "database" | "monitor" | "tablet" | "phone" | "plus" | "minus" | "search" | "dashboard" | "chart" | "wallet" | "cart" | "filter" | "sort" | "edit" | "trash" | "eye" | "eyeOff" | "mail" | "message" | "help" | "info" | "warning" | "success" | "clock" | "logout" | "refresh";
 
 const paths: Record<IconName, ReactNode> = {
   spark: <><path d="M12 2.5 14.2 9l6.3 3-6.3 3-2.2 6.5L9.8 15 3.5 12l6.3-3Z" /><path d="m18.5 3 .6 2.1L21 6l-1.9.9-.6 2.1-.7-2.1L16 6l1.8-.9Z" /></>,
@@ -38,6 +38,25 @@ const paths: Record<IconName, ReactNode> = {
   plus: <><path d="M12 5v14M5 12h14" /></>,
   minus: <path d="M5 12h14" />,
   search: <><circle cx="10.8" cy="10.8" r="6.8" /><path d="m16 16 5 5" /></>,
+  dashboard: <><rect x="3" y="3" width="7" height="7" rx="1" /><rect x="14" y="3" width="7" height="7" rx="1" /><rect x="3" y="14" width="7" height="7" rx="1" /><rect x="14" y="14" width="7" height="7" rx="1" /></>,
+  chart: <><path d="M4 19V5M4 19h16" /><path d="m7 15 3-4 3 2 5-7" /></>,
+  wallet: <><path d="M4 7.5A2.5 2.5 0 0 1 6.5 5H19a2 2 0 0 1 2 2v11a1 1 0 0 1-1 1H6.5A2.5 2.5 0 0 1 4 16.5Z" /><path d="M4 8h14" /><path d="M16 13h5" /></>,
+  cart: <><path d="M3 4h2l2.2 10.2a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 1.9-1.4L20 8H6" /><circle cx="9" cy="20" r="1" /><circle cx="17" cy="20" r="1" /></>,
+  filter: <path d="M4 5h16l-6 7v6l-4 2v-8Z" />,
+  sort: <><path d="M7 5v14M4 8l3-3 3 3M17 19V5M14 16l3 3 3-3" /></>,
+  edit: <><path d="m4 16-.8 4.8L8 20l11.5-11.5a2.1 2.1 0 0 0-3-3Z" /><path d="m14 7 3 3" /></>,
+  trash: <><path d="M4 7h16M10 11v6M14 11v6M6 7l1 14h10l1-14M9 7V4h6v3" /></>,
+  eye: <><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z" /><circle cx="12" cy="12" r="2.5" /></>,
+  eyeOff: <><path d="m3 3 18 18M10.6 6.2A10.8 10.8 0 0 1 12 6c6 0 9.5 6 9.5 6a18 18 0 0 1-3.1 3.9M6.2 6.7C3.8 8.5 2.5 12 2.5 12s3.5 6 9.5 6a9.6 9.6 0 0 0 2.4-.3" /></>,
+  mail: <><rect x="3" y="5" width="18" height="14" rx="2" /><path d="m4 7 8 6 8-6" /></>,
+  message: <path d="M4 5h16v12H8l-4 4Z" />,
+  help: <><circle cx="12" cy="12" r="9" /><path d="M9.8 9a2.3 2.3 0 1 1 3.5 2c-.9.6-1.3 1-1.3 2M12 16h.01" /></>,
+  info: <><circle cx="12" cy="12" r="9" /><path d="M12 11v5M12 8h.01" /></>,
+  warning: <><path d="m12 3 9 17H3Z" /><path d="M12 9v4M12 17h.01" /></>,
+  success: <><circle cx="12" cy="12" r="9" /><path d="m8 12 2.5 2.5L16 9" /></>,
+  clock: <><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></>,
+  logout: <><path d="M10 4H5v16h5M14 8l4 4-4 4M18 12H9" /></>,
+  refresh: <><path d="M20 11a8 8 0 0 0-14.8-3L3 11" /><path d="M3 5v6h6M4 13a8 8 0 0 0 14.8 3L21 13" /><path d="M21 19v-6h-6" /></>,
 };
 
 export function LuminaIcon({ name, size = 18, className = "", ...props }: SVGProps<SVGSVGElement> & { name: IconName; size?: number }) {
