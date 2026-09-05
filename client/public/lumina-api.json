@@ -1,0 +1,26 @@
+{
+  "version": "0.7.0",
+  "bundles": ["lumina-core.css", "lumina-components.css", "lumina-interactions.css", "lumina-icons.css", "lumina-dashboard.css", "lumina-icons.js", "lumina-interactions.js", "lumina.js"],
+  "entries": [
+    {"name":"lu-table-shell","kind":"class","group":"dashboard","description":"Responsive overflow shell for wide data tables on narrow screens."},
+    {"name":"lu-table","kind":"class","group":"dashboard","description":"Accessible baseline table styling with headers, rows, and borders."},
+    {"name":"lu-table-fixed","kind":"class","group":"dashboard","description":"Predictable fixed column geometry for dashboards."},
+    {"name":"lu-filter-bar","kind":"class","group":"dashboard","description":"Responsive filter and search toolbar layout."},
+    {"name":"lu-pagination","kind":"class","group":"dashboard","description":"Aligned pagination footer for list and table surfaces."},
+    {"name":"lu-empty","kind":"class","group":"dashboard","description":"Intentional empty state surface for zero-result views."},
+    {"name":"lu-tabs","kind":"class","group":"components","description":"Scrollable tablist container for compact application sections."},
+    {"name":"lu-tab","kind":"class","group":"components","description":"Keyboard-friendly tab button with aria-selected state."},
+    {"name":"lu-input","kind":"class","group":"forms","description":"Token-aware text input with focus-visible treatment."},
+    {"name":"lu-select","kind":"class","group":"forms","description":"Token-aware select control for dashboard filters."},
+    {"name":"lu-skeleton","kind":"class","group":"feedback","description":"Reduced-motion-aware loading placeholder."},
+    {"name":"lu-drawer","kind":"class","group":"interactions","description":"Responsive slide-in secondary navigation or filter panel."},
+    {"name":"lu-toast-viewport","kind":"class","group":"interactions","description":"Viewport for transient status notifications."},
+    {"name":"lu-command","kind":"class","group":"interactions","description":"Command palette overlay with searchable actions."},
+    {"name":"data-lu-drawer-open","kind":"attribute","group":"interactions","description":"Connects a trigger to a drawer selector."},
+    {"name":"data-lu-toast","kind":"attribute","group":"interactions","description":"Creates a toast in the configured toast viewport."},
+    {"name":"data-lu-command-open","kind":"attribute","group":"interactions","description":"Opens a command palette selector."},
+    {"name":"data-lu-icon","kind":"attribute","group":"icons","description":"Renders an inline SVG icon with LuminaIcons or the all-in-one runtime."},
+    {"name":"data-lu-theme-toggle","kind":"attribute","group":"theme","description":"Toggles and persists light/dark theme state."},
+    {"name":"data-lu-grid-toggle","kind":"attribute","group":"theme","description":"Toggles and persists the documentation grid background."}
+  ]
+}

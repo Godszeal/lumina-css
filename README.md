@@ -80,3 +80,35 @@ The CDN table primitives are:
 ## Planned Lumina expansion
 
 The Tailwind review identified several high-value capabilities that can be added as original `lu-` prefixed primitives: density and row-selection patterns, `aria-sort` helpers, skeleton/loading surfaces, form validation states, filter chips, breadcrumbs, tabs, command palettes, toasts, tooltips, drawers, accordions, container-query utilities, and data-visualization primitives. Lumina will keep these as small CDN-friendly behaviors instead of reproducing Tailwind’s build-time compiler or generated runtime.
+
+
+## v0.7.0 Admin Kit and modular CDN bundles
+
+The Admin Kit includes tabs, form controls, drawers, toasts, skeleton loaders, a command palette, responsive tables, filters, pagination, empty states, and a searchable API index. The documentation site now uses the real versioned jsDelivr URLs.
+
+The all-in-one compatibility bundle remains available:
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Godszeal/lumina-css@v0.7.0/client/public/lumina.css">
+<script defer src="https://cdn.jsdelivr.net/gh/Godszeal/lumina-css@v0.7.0/client/public/lumina.js"></script>
+```
+
+For smaller production pages, load only the modules you need:
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Godszeal/lumina-css@v0.7.0/client/public/lumina-core.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Godszeal/lumina-css@v0.7.0/client/public/lumina-components.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Godszeal/lumina-css@v0.7.0/client/public/lumina-interactions.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Godszeal/lumina-css@v0.7.0/client/public/lumina-icons.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Godszeal/lumina-css@v0.7.0/client/public/lumina-dashboard.css">
+<script defer src="https://cdn.jsdelivr.net/gh/Godszeal/lumina-css@v0.7.0/client/public/lumina-icons.js"></script>
+<script defer src="https://cdn.jsdelivr.net/gh/Godszeal/lumina-css@v0.7.0/client/public/lumina-interactions.js"></script>
+```
+
+The machine-readable API index is available at:
+
+```text
+https://cdn.jsdelivr.net/gh/Godszeal/lumina-css@v0.7.0/client/public/lumina-api.json
+```
+
+Run `pnpm validate:lumina` to check required assets, bundle sizes, responsive CSS markers, and common accessibility markers before publishing.

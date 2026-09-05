@@ -9,6 +9,8 @@
     "start": "NODE_ENV=production node dist/index.js",
     "preview": "vite preview --host",
     "check": "tsc --noEmit",
+    "validate:lumina": "node scripts/validate-lumina.mjs",
+    "test:a11y": "node scripts/a11y-smoke.mjs",
     "format": "prettier --write ."
   },
   "dependencies": {
