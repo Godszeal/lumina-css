@@ -19,3 +19,19 @@ Tailwind’s utility model covers layout, spacing, sizing, typography, colors, b
 ## Implementation boundary
 
 Do not fetch or copy Tailwind’s generated runtime or source code into Lumina. Use the official feature categories as a compatibility and planning reference, then implement original `lu-` prefixed CSS primitives and a small runtime for interactive components. Keep Lumina’s CDN-first identity, original token names, custom icon geometry, and no-build usage model.
+
+
+## Dashboard-specific findings
+
+Tailwind’s state documentation treats hover, focus, active, focus-visible, disabled, invalid, checked, aria, data, and structural variants as composable conditions. It also documents odd/even and descendant-driven variants for table rows and grouped controls. Lumina should implement original state helpers for focus-visible, disabled, invalid, selected, busy, and status states rather than a full variant compiler.
+
+Tailwind’s table-layout documentation highlights `table-auto` for content-sized columns and `table-fixed` for predictable column widths. Responsive table behavior can switch layout utilities at breakpoints. Lumina’s dashboard should use a scrollable table shell on small screens, `table-layout: fixed` for stable desktop columns, compact row density, and an explicit empty state when filtering returns no rows.
+
+## Future Lumina additions
+
+High-value next features include sortable table headers, density controls, `aria-sort` support, row selection, keyboard focus styling, responsive overflow shells, form validation states, skeleton/loading surfaces, pagination primitives, filter chips, breadcrumbs, tabs, command palettes, toasts, tooltips, disclosure/accordion patterns, drawer/sheet components, and data visualization primitives. These should remain small, prefixed, CDN-friendly, and independent of a build-time compiler.
+
+
+## Lumina dashboard verification
+
+The live preview rendered the Dashboard showcase with four metric cards, a workspace search input, a status select, a sortable workspace header, a fixed-width scrollable table shell, status chips, pagination controls, and a documented empty state. The demo data is explicitly labeled as non-customer data. The desktop preview exposes the full table while the existing mobile-first shell keeps the table scrollable instead of forcing unreadable column compression.

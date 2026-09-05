@@ -61,3 +61,22 @@ The icon catalog now includes dashboard and form families such as `dashboard`, `
 ## Font Awesome comparison and icon strategy
 
 Font Awesome 7.3.1 lists 2,163 Free icons and 65,928 Pro icons across 36 styles, 17 packs, and 68 categories. Lumina uses that broad category coverage as a planning reference, but it does not copy Font Awesome Pro paths or redistribute Font Awesome files. Font Awesome Free’s official license applies CC BY 4.0 to SVG/JS icons, SIL OFL 1.1 to font files, and MIT to code; attribution requirements and brand-trademark restrictions still apply. See `research/font-awesome-findings.md` for the source links and the recommended original Lumina categories.
+
+
+## Dashboard showcase
+
+The documentation includes a responsive dashboard recipe using non-customer demo data. It demonstrates metric cards, search, status filtering, sortable workspace headers, pagination, status chips, fixed table geometry, mobile overflow handling, and a resettable empty state.
+
+The CDN table primitives are:
+
+```html
+<div class="lu-table-shell">
+  <div class="lu-filter-bar">Filters</div>
+  <table class="lu-table lu-table-fixed">...</table>
+  <nav class="lu-pagination">Pagination</nav>
+</div>
+```
+
+## Planned Lumina expansion
+
+The Tailwind review identified several high-value capabilities that can be added as original `lu-` prefixed primitives: density and row-selection patterns, `aria-sort` helpers, skeleton/loading surfaces, form validation states, filter chips, breadcrumbs, tabs, command palettes, toasts, tooltips, drawers, accordions, container-query utilities, and data-visualization primitives. Lumina will keep these as small CDN-friendly behaviors instead of reproducing Tailwind’s build-time compiler or generated runtime.

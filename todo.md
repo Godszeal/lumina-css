@@ -28,3 +28,9 @@
 - [x] Add SEO metadata, Open Graph image, favicon, robots, and sitemap assets.
 - [x] Add additional motion, transition, theme, and visual utility classes.
 - [x] Verify every documentation section at mobile width and publish the next release.
+- [ ] Review Tailwind’s official utility and component documentation categories.
+- [ ] Define a non-customer demo dashboard data model with table rows, statuses, and metrics.
+- [ ] Add dashboard filters, sorting, pagination, data table, and empty states.
+- [ ] Add responsive dashboard documentation and mobile table behavior.
+- [ ] Document additional original Lumina features based on the Tailwind review.
+- [ ] Test, publish, and deliver the dashboard showcase release.
