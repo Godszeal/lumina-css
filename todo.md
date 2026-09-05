@@ -7,4 +7,7 @@
 - [x] Add icon usage examples, SVG sprite guidance, and icon accessibility notes.
 - [x] Add versioned CDN asset metadata and a clear Vercel deployment guide.
 - [x] Run type checking, production build, and desktop/mobile visual verification.
-- [ ] Confirm whether the user wants a public GitHub repository before exposing assets through jsDelivr.
+- [x] Confirm whether the user wants a public GitHub repository before exposing assets through jsDelivr.
+- [ ] Create the public GitHub repository and push the prepared distribution.
+- [ ] Create and push the v0.2.0 release tag.
+- [ ] Validate the jsDelivr CSS and JavaScript URLs.
