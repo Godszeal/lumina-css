@@ -11,7 +11,7 @@
 - [x] Create the public GitHub repository and push the prepared distribution.
 - [x] Create and push the v0.2.0 release tag.
 - [x] Validate the jsDelivr CSS and JavaScript URLs.
-- [ ] Add expanded neumorphic icon families and accessible CDN icon names.
-- [ ] Add advanced grid utilities for auto-fit, masonry-like rows, editorial spans, and responsive areas.
-- [ ] Update documentation examples and icon/grid references.
-- [ ] Run checks, publish the next GitHub tag, and validate the new CDN URLs.
+- [x] Add expanded neumorphic icon families and accessible CDN icon names.
+- [x] Add advanced grid utilities for auto-fit, masonry-like rows, editorial spans, and responsive areas.
+- [x] Update documentation examples and icon/grid references.
+- [x] Run checks, publish the next GitHub tag, and validate the new CDN URLs.
