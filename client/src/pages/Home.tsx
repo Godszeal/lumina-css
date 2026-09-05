@@ -1,149 +1,93 @@
-/* Editorial Utility direction — asymmetric specimen-sheet layout with ink, paper, cobalt signal, and visible system metadata. */
+/* Editorial Utility direction — full documentation workspace: asymmetric rail on desktop, mobile drawer on small screens, specimen-sheet content with cobalt slash details. */
 import { useMemo, useState } from "react";
-import { ArrowUpRight, Check, ChevronRight, Copy, Moon, Play, Sun, Terminal, Zap } from "lucide-react";
+import { Copy, Search, ExternalLink } from "lucide-react";
+import { LuminaIcon, type IconName } from "@/components/LuminaIcon";
 
-const CDN_SNIPPET = '<link rel="stylesheet" href="https://cdn.lumina.css/lumina.css" />';
-const SCRIPT_SNIPPET = '<script src="https://cdn.lumina.css/lumina.js"></script>';
+type SectionKey = "overview" | "install" | "foundations" | "layout" | "components" | "icons" | "theming" | "motion" | "accessibility";
 
-const utilityRows = [
-  { label: "Responsive grid", code: "lu-grid lu-grid-3", detail: "3 → 1 columns at 760px" },
-  { label: "Flexible rhythm", code: "lu-flex lu-items-center lu-gap-4", detail: "Layout primitives with intent" },
-  { label: "Action surface", code: "lu-btn lu-btn-primary", detail: "Tactile, accessible defaults" },
-  { label: "Data signal", code: "lu-badge", detail: "Compact status language" },
+type NavItem = { key: SectionKey; label: string; meta: string; icon: IconName };
+const nav: NavItem[] = [
+  { key: "overview", label: "Overview", meta: "Start here", icon: "spark" },
+  { key: "install", label: "Installation", meta: "01", icon: "code" },
+  { key: "foundations", label: "Foundations", meta: "02", icon: "palette" },
+  { key: "layout", label: "Layout utilities", meta: "03", icon: "grid" },
+  { key: "components", label: "Components", meta: "04", icon: "layers" },
+  { key: "icons", label: "Lumina icons", meta: "05", icon: "spark" },
+  { key: "theming", label: "Theming", meta: "06", icon: "palette" },
+  { key: "motion", label: "Motion", meta: "07", icon: "motion" },
+  { key: "accessibility", label: "Accessibility", meta: "08", icon: "accessibility" },
 ];
 
-function CodeButton({ value }: { value: string }) {
-  const [copied, setCopied] = useState(false);
-  return (
-    <button
-      className="flex items-center gap-2 rounded-full border border-white/15 px-3 py-2 font-mono text-[10px] text-white/70 transition hover:border-white/40 hover:text-white"
-      onClick={() => {
-        navigator.clipboard?.writeText(value);
-        setCopied(true);
-        window.setTimeout(() => setCopied(false), 1500);
-      }}
-      aria-label="Copy code"
-    >
-      {copied ? <Check size={13} /> : <Copy size={13} />}
-      {copied ? "COPIED" : "COPY"}
-    </button>
-  );
-}
+const iconNames: IconName[] = ["spark", "grid", "layers", "code", "palette", "motion", "accessibility", "arrow", "check", "menu", "sun", "moon"];
+const codeSnippets: Record<string, string> = {
+  css: '<link rel="stylesheet" href="https://cdn.lumina.css/lumina.css" />',
+  js: '<script src="https://cdn.lumina.css/lumina.js"></script>',
+  grid: '<div class="lu-grid lu-grid-3 lu-gap-4">\n  <article class="lu-card">One</article>\n  <article class="lu-card">Two</article>\n</div>',
+  icons: '<span class="lu-icon lu-icon-spark" aria-hidden="true"></span>',
+};
 
 function SectionLabel({ index, children }: { index: string; children: string }) {
-  return (
-    <div className="flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-      <span className="font-mono text-[#315CFF]">{index}</span>
-      <span className="relative flex h-4 w-5 items-center"><span className="absolute h-px w-8 bg-[#315CFF]/40" /><span className="absolute left-1 h-3 w-1 rotate-[32deg] bg-[#315CFF]" /></span>
-      <span>{children}</span>
-    </div>
-  );
+  return <div className="flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground"><span className="font-mono text-[#315CFF]">{index}</span><span className="relative flex h-4 w-5 items-center"><span className="absolute h-px w-8 bg-[#315CFF]/40" /><span className="absolute left-1 h-3 w-1 rotate-[32deg] bg-[#315CFF]" /></span><span>{children}</span></div>;
+}
+
+function CopyCode({ value }: { value: string }) {
+  const [copied, setCopied] = useState(false);
+  return <button className="flex shrink-0 items-center gap-2 rounded-full border border-border px-3 py-2 font-mono text-[9px] uppercase tracking-widest text-muted-foreground transition hover:border-[#315CFF] hover:text-[#315CFF]" onClick={() => { navigator.clipboard?.writeText(value); setCopied(true); window.setTimeout(() => setCopied(false), 1300); }}><Copy size={12} />{copied ? "Copied" : "Copy"}</button>;
+}
+
+function CodeBlock({ value }: { value: string }) {
+  return <div className="overflow-hidden border border-border bg-foreground text-background lu-shadow"><div className="flex items-center justify-between border-b border-background/10 px-4 py-3"><span className="font-mono text-[9px] uppercase tracking-widest text-background/50">lumina snippet</span><CopyCode value={value} /></div><pre className="overflow-x-auto p-5 font-mono text-[11px] leading-7 text-background/85"><code>{value}</code></pre></div>;
 }
 
 export default function Home() {
+  const [active, setActive] = useState<SectionKey>("overview");
+  const [query, setQuery] = useState("");
+  const [mobileOpen, setMobileOpen] = useState(false);
   const [dark, setDark] = useState(false);
-  const [activeTab, setActiveTab] = useState<"cdn" | "script">("cdn");
-  const [playgroundClass, setPlaygroundClass] = useState("lu-card lu-shadow");
-  const [playgroundResult, setPlaygroundResult] = useState("lu-card lu-shadow");
-  const snippet = activeTab === "cdn" ? CDN_SNIPPET : SCRIPT_SNIPPET;
-  const chipText = useMemo(() => playgroundResult.split(" ").slice(0, 3).join(" "), [playgroundResult]);
+  const [iconTone, setIconTone] = useState<"paper" | "ink" | "cobalt">("paper");
+  const filteredNav = useMemo(() => nav.filter((item) => `${item.label} ${item.meta}`.toLowerCase().includes(query.toLowerCase())), [query]);
+  const go = (key: SectionKey) => { setActive(key); setMobileOpen(false); window.scrollTo({ top: 0, behavior: "smooth" }); };
+  const current = nav.find((item) => item.key === active) ?? nav[0];
 
-  return (
-    <div className={dark ? "dark lu-shell" : "lu-shell"}>
-      <div className="relative z-10 grid min-h-screen lg:grid-cols-[76px_1fr]">
-        <aside className="hidden border-r border-border/70 bg-background/80 lg:flex lg:flex-col lg:items-center lg:justify-between lg:py-7">
-          <div className="flex flex-col items-center gap-8">
-            <div className="relative flex h-10 w-10 items-center justify-center overflow-hidden bg-[#315CFF] text-white shadow-[4px_4px_0_#111827]" aria-label="Lumina mark">
-              <span className="absolute h-5 w-2 rotate-[32deg] bg-white" />
-              <span className="absolute bottom-2 left-2 h-2 w-5 bg-white" />
-            </div>
-            <div className="h-16 w-px bg-border" />
-            <div className="flex -rotate-90 items-center gap-3 whitespace-nowrap font-mono text-[9px] font-semibold tracking-[0.22em] text-muted-foreground">
-              <span>STYLING CDN</span><span className="text-[#315CFF]">/</span><span>DOCS 0.1</span>
-            </div>
-          </div>
-          <button className="rounded-full p-3 text-muted-foreground transition hover:bg-muted hover:text-foreground" onClick={() => setDark(!dark)} aria-label="Toggle theme">
-            {dark ? <Sun size={17} /> : <Moon size={17} />}
-          </button>
-        </aside>
+  return <div className={dark ? "dark lu-shell" : "lu-shell"}>
+    <div className="relative z-10 min-h-screen lg:grid lg:grid-cols-[292px_1fr]">
+      <aside className="hidden border-r border-border/80 bg-background/90 lg:flex lg:flex-col">
+        <div className="flex items-center gap-3 border-b border-border/80 px-7 py-6"><div className="relative flex h-10 w-10 items-center justify-center bg-[#315CFF] text-white shadow-[4px_4px_0_#111827]"><span className="absolute h-5 w-2 rotate-[32deg] bg-white" /><span className="absolute bottom-2 left-2 h-2 w-5 bg-white" /></div><div><div className="flex items-center gap-1 font-display text-sm font-bold tracking-[-.04em]"><span>LUMINA</span><span className="relative mx-0.5 inline-flex h-4 w-3 items-center"><span className="absolute left-1 h-5 w-1 -rotate-[32deg] bg-[#315CFF]" /></span><span>CSS</span></div><div className="font-mono text-[9px] uppercase tracking-widest text-muted-foreground">Documentation / 0.1</div></div></div>
+        <div className="border-b border-border/80 p-5"><label className="flex items-center gap-2 border border-border bg-card px-3 py-2.5 text-muted-foreground focus-within:border-[#315CFF]"><Search size={14} /><input aria-label="Search documentation" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search docs" className="w-full bg-transparent font-mono text-[10px] outline-none placeholder:text-muted-foreground" /><span className="font-mono text-[9px]">⌘K</span></label></div>
+        <nav className="flex-1 overflow-auto p-4">{filteredNav.map((item) => <button key={item.key} onClick={() => go(item.key)} className={`group mb-1 flex w-full items-center gap-3 border-l-2 px-3 py-3 text-left transition ${active === item.key ? "border-[#315CFF] bg-[#315CFF]/8 text-foreground" : "border-transparent text-muted-foreground hover:border-border hover:text-foreground"}`}><LuminaIcon name={item.icon} size={16} className={active === item.key ? "text-[#315CFF]" : ""} /><span className="flex-1 text-xs font-semibold">{item.label}</span><span className="font-mono text-[9px] text-muted-foreground">{item.meta}</span></button>)}</nav>
+        <div className="border-t border-border/80 p-5"><div className="mb-4 flex items-center justify-between"><span className="font-mono text-[9px] uppercase tracking-widest text-muted-foreground">System status</span><span className="h-2 w-2 rounded-full bg-[#c8f564] ring-4 ring-[#c8f564]/15" /></div><div className="font-mono text-[10px] leading-6 text-muted-foreground">All primitives loaded.<br /><span className="text-foreground">Ready for composition.</span></div></div>
+      </aside>
 
-        <main>
-          <header className="sticky top-0 z-30 flex items-center justify-between border-b border-border/70 bg-background/85 px-5 py-4 backdrop-blur-xl lg:px-10">
-            <div className="flex items-center gap-3 lg:hidden">
-              <div className="flex h-8 w-8 items-center justify-center bg-[#315CFF] text-white"><span className="h-4 w-1.5 rotate-[32deg] bg-white" /></div>
-              <span className="font-display text-sm font-bold tracking-tight">LUMINA<span className="text-[#315CFF]">.</span>CSS</span>
-            </div>
-            <div className="hidden items-center gap-6 font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-muted-foreground lg:flex">
-              <a href="#foundations" className="transition hover:text-[#315CFF]">Foundations</a>
-              <a href="#utilities" className="transition hover:text-[#315CFF]">Utilities</a>
-              <a href="#components" className="transition hover:text-[#315CFF]">Components</a>
-              <a href="#playground" className="transition hover:text-[#315CFF]">Playground</a>
-            </div>
-            <div className="flex items-center gap-3">
-              <span className="hidden font-mono text-[10px] text-muted-foreground sm:inline">v0.1.0 / READY</span>
-              <button className="flex items-center gap-2 rounded-full bg-[#315CFF] px-4 py-2.5 font-mono text-[10px] font-semibold uppercase tracking-[0.12em] text-white transition hover:-translate-y-0.5 hover:brightness-110" onClick={() => document.getElementById("install")?.scrollIntoView({ behavior: "smooth" })}>
-                Install <ArrowUpRight size={14} />
-              </button>
-              <button className="rounded-full border border-border p-2 text-muted-foreground transition hover:border-[#315CFF] hover:text-[#315CFF] lg:hidden" onClick={() => setDark(!dark)} aria-label="Toggle theme">
-                {dark ? <Sun size={15} /> : <Moon size={15} />}
-              </button>
-            </div>
-          </header>
+      <main className="min-w-0">
+        <header className="sticky top-0 z-40 flex items-center justify-between border-b border-border/80 bg-background/90 px-4 py-3 backdrop-blur-xl sm:px-6 lg:px-10"><button className="flex items-center gap-3 lg:hidden" onClick={() => setMobileOpen(true)}><LuminaIcon name="menu" size={20} /><span className="flex items-center gap-1 font-display text-sm font-bold tracking-[-.04em]"><span>LUMINA</span><span className="relative inline-flex h-4 w-3 items-center"><span className="absolute left-1 h-5 w-1 -rotate-[32deg] bg-[#315CFF]" /></span><span>CSS</span></span></button><div className="hidden items-center gap-3 lg:flex"><span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">Docs /</span><span className="font-mono text-[10px] uppercase tracking-widest text-[#315CFF]">{current.label}</span></div><div className="flex items-center gap-2"><span className="hidden font-mono text-[9px] uppercase tracking-widest text-muted-foreground sm:block">v0.1.0 / stable</span><button onClick={() => setDark(!dark)} className="rounded-full border border-border p-2 text-muted-foreground transition hover:border-[#315CFF] hover:text-[#315CFF]" aria-label="Toggle dark mode"><LuminaIcon name={dark ? "sun" : "moon"} size={15} /></button><a href="#install" onClick={(e) => { e.preventDefault(); go("install"); }} className="rounded-full bg-[#315CFF] px-4 py-2.5 font-mono text-[10px] font-semibold uppercase tracking-widest text-white transition hover:-translate-y-0.5">Install <span className="ml-1">↗</span></a></div></header>
 
-          <section className="relative overflow-hidden border-b border-border/70 px-5 pb-20 pt-16 lg:px-16 lg:pb-28 lg:pt-24">
-            <img src="/manus-storage/lumina-hero-texture_ee04af89.png" alt="" className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-40 mix-blend-multiply dark:opacity-20 dark:mix-blend-screen" />
-            <div className="relative grid gap-14 lg:grid-cols-[minmax(0,1.15fr)_minmax(280px,.85fr)] lg:items-end">
-              <div className="max-w-4xl lu-slide-in">
-                <SectionLabel index="00" children="A new baseline for the web" />
-                <h1 className="lu-display mt-7 max-w-4xl text-[clamp(3.6rem,9vw,8.4rem)] font-bold leading-[.88] text-foreground">Ship the shape.<br /><span className="text-[#315CFF]">Keep the signal.</span></h1>
-                <p className="mt-8 max-w-xl text-lg leading-8 text-muted-foreground lg:text-xl">A sharper styling CDN for builders who want speed without sacrificing visual character. Utility primitives, components, icons, and motion — in one expressive layer.</p>
-                <div className="mt-9 flex flex-wrap items-center gap-3">
-                  <button className="flex items-center gap-2 rounded-full bg-foreground px-5 py-3.5 font-mono text-xs font-semibold uppercase tracking-[0.12em] text-background transition hover:-translate-y-1" onClick={() => document.getElementById("playground")?.scrollIntoView({ behavior: "smooth" })}>Open playground <Play size={14} fill="currentColor" /></button>
-                  <a href="#install" className="flex items-center gap-2 rounded-full border border-border px-5 py-3.5 font-mono text-xs font-semibold uppercase tracking-[0.12em] text-foreground transition hover:border-[#315CFF] hover:text-[#315CFF]">Read the install <ChevronRight size={14} /></a>
-                </div>
-              </div>
-              <div className="relative ml-auto w-full max-w-sm lg:mb-1">
-                <div className="mb-3 flex items-center justify-between font-mono text-[9px] uppercase tracking-[0.16em] text-muted-foreground"><span>SPECIMEN / 001</span><span>CDN READY</span></div>
-                <div className="lu-grid-paper lu-shadow relative overflow-hidden border border-foreground/15 p-5 dark:bg-card">
-                  <div className="absolute right-5 top-5 flex items-center gap-2"><span className="h-2 w-2 rounded-full bg-[#c8f564] ring-4 ring-[#c8f564]/20" /><span className="font-mono text-[8px] uppercase tracking-widest text-muted-foreground">ready</span></div>
-                  <div className="mb-12 font-mono text-[10px] text-muted-foreground">// your new default</div>
-                  <div className="font-display text-4xl font-bold leading-none tracking-[-0.06em]">One import.<br /><span className="text-[#315CFF]">Whole language.</span></div>
-                  <div className="mt-12 flex items-end justify-between border-t border-border pt-3 font-mono text-[9px] uppercase tracking-[0.14em] text-muted-foreground"><span>GRID / FLEX / MOTION</span><span>↗ 01</span></div>
-                </div>
-              </div>
-            </div>
-          </section>
+        {mobileOpen && <div className="fixed inset-0 z-50 bg-foreground/40 lg:hidden" onClick={() => setMobileOpen(false)}><div className="h-full w-[min(88vw,350px)] bg-background p-5 shadow-2xl" onClick={(e) => e.stopPropagation()}><div className="mb-8 flex items-center justify-between"><span className="font-display text-lg font-bold">LUMINA<span className="text-[#315CFF]">.</span>CSS</span><button onClick={() => setMobileOpen(false)} aria-label="Close navigation"><LuminaIcon name="close" /></button></div><label className="mb-5 flex items-center gap-2 border border-border px-3 py-3 text-muted-foreground"><Search size={15} /><input aria-label="Search documentation" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search docs" className="w-full bg-transparent font-mono text-[10px] outline-none" /></label>{filteredNav.map((item) => <button key={item.key} onClick={() => go(item.key)} className={`mb-1 flex w-full items-center gap-3 border-l-2 px-3 py-3 text-left ${active === item.key ? "border-[#315CFF] bg-[#315CFF]/8" : "border-transparent text-muted-foreground"}`}><LuminaIcon name={item.icon} size={16} /><span className="flex-1 text-sm font-semibold">{item.label}</span><span className="font-mono text-[9px] text-muted-foreground">{item.meta}</span></button>)}</div></div>}
 
-          <section id="foundations" className="border-b border-border/70 px-5 py-16 lg:px-16 lg:py-24">
-            <div className="grid gap-10 lg:grid-cols-[.8fr_1.2fr]">
-              <div><SectionLabel index="01" children="The foundation" /><h2 className="lu-display mt-5 max-w-sm text-4xl font-bold leading-[.98] lg:text-5xl">Small primitives.<br /><span className="text-[#315CFF]">Large range.</span></h2></div>
-              <div className="grid gap-10 sm:grid-cols-2">
-                <div><div className="mb-5 flex items-center gap-2"><div className="h-3 w-3 bg-[#315CFF]" /><span className="font-mono text-xs font-semibold uppercase tracking-wider">Cobalt signal</span></div><p className="text-sm leading-7 text-muted-foreground">A single, ownable action color keeps a large system legible. Use it to mark intent, not decoration.</p></div>
-                <div><div className="mb-5 flex items-center gap-2"><div className="h-3 w-3 bg-[#c8f564]" /><span className="font-mono text-xs font-semibold uppercase tracking-wider">Ready state</span></div><p className="text-sm leading-7 text-muted-foreground">A rare lime signal gives status moments a clear visual voice without competing with content.</p></div>
-              </div>
-            </div>
-          </section>
-
-          <section id="utilities" className="border-b border-border/70 px-5 py-16 lg:px-16 lg:py-24">
-            <div className="mb-10 flex items-end justify-between gap-6"><div><SectionLabel index="02" children="Utility layer" /><h2 className="lu-display mt-5 text-4xl font-bold leading-none lg:text-6xl">The kit is the product.</h2></div><span className="hidden font-mono text-[10px] uppercase tracking-widest text-muted-foreground md:block">01—04 / CORE UTILITIES</span></div>
-            <div className="grid gap-3 lg:grid-cols-4">
-              {utilityRows.map((row, index) => <div key={row.code} className="group relative border border-border border-t-2 border-t-[#315CFF]/60 bg-background p-5 transition hover:-translate-y-1 hover:border-[#315CFF] hover:shadow-[6px_6px_0_#315CFF]"><div className="mb-12 flex items-center justify-between"><span className="font-mono text-[10px] text-muted-foreground">0{index + 1}</span><ArrowUpRight size={16} className="text-muted-foreground transition group-hover:text-[#315CFF]" /></div><p className="font-display text-lg font-semibold">{row.label}</p><code className="mt-4 block break-words font-mono text-[10px] text-[#315CFF]">.{row.code}</code><p className="mt-3 text-xs text-muted-foreground">{row.detail}</p></div>)}
-            </div>
-          </section>
-
-          <section id="components" className="border-b border-border/70 bg-foreground px-5 py-16 text-background lg:px-16 lg:py-24">
-            <div className="grid gap-12 lg:grid-cols-[.85fr_1.15fr] lg:items-center"><div><SectionLabel index="03" children="Components / tuned" /><h2 className="lu-display mt-5 text-4xl font-bold leading-[.95] lg:text-6xl">Useful by default.<br /><span className="text-[#8fa4ff]">Expressive on demand.</span></h2><p className="mt-7 max-w-md text-base leading-7 text-background/60">No component maze. Just a small set of surfaces that share tokens, take modifiers, and stay out of your way.</p><button className="mt-8 flex items-center gap-2 rounded-full bg-[#315CFF] px-5 py-3.5 font-mono text-xs font-semibold uppercase tracking-wider text-white transition hover:-translate-y-1 hover:brightness-110">Explore the API <ArrowUpRight size={14} /></button></div>
-              <div className="grid gap-3 sm:grid-cols-2"><div className="rounded-sm border border-background/15 bg-background/5 p-5"><div className="mb-8 flex items-center justify-between"><Zap size={18} className="text-[#c8f564]" /><span className="font-mono text-[9px] uppercase tracking-[0.14em] text-background/50"><span className="mr-1 text-[#315CFF]">/</span>lu-card</span></div><p className="font-display text-xl font-semibold">Built to compose.</p><p className="mt-2 text-sm leading-6 text-background/55">Start with a class. Finish with your own visual language.</p></div><div className="rounded-sm border border-background/15 bg-background/5 p-5"><div className="mb-8 flex items-center justify-between"><Terminal size={18} className="text-[#8fa4ff]" /><span className="font-mono text-[9px] uppercase tracking-[0.14em] text-background/50"><span className="mr-1 text-[#315CFF]">/</span>lu-btn</span></div><p className="font-display text-xl font-semibold">No JavaScript required.</p><p className="mt-2 text-sm leading-6 text-background/55">Progressive enhancement keeps the CSS layer fast and dependable.</p></div></div>
-            </div>
-          </section>
-
-          <section id="playground" className="border-b border-border/70 px-5 py-16 lg:px-16 lg:py-24"><div className="mb-10"><SectionLabel index="04" children="Live playground" /><h2 className="lu-display mt-5 text-4xl font-bold leading-none lg:text-6xl">Try the language.</h2></div><div className="grid gap-6 lg:grid-cols-[.85fr_1.15fr]"><div className="border border-border bg-card p-6 lu-shadow"><div className="flex items-center justify-between"><span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">Class composer</span><span className="rounded-full bg-[#c8f564] px-2 py-1 font-mono text-[9px] font-semibold">LIVE</span></div><label className="mt-7 block font-mono text-[10px] uppercase tracking-widest text-muted-foreground" htmlFor="class-input">Type a class string</label><input id="class-input" value={playgroundClass} onChange={(event) => setPlaygroundClass(event.target.value)} className="mt-3 w-full border-b border-border bg-transparent py-3 font-mono text-sm text-[#315CFF] outline-none transition focus:border-[#315CFF]" /><button className="mt-6 flex items-center gap-2 rounded-full bg-foreground px-4 py-3 font-mono text-[10px] font-semibold uppercase tracking-widest text-background transition hover:-translate-y-0.5" onClick={() => setPlaygroundResult(playgroundClass || "lu-card")}>Apply classes <ArrowUpRight size={13} /></button><div className="mt-8 border-t border-border pt-4 font-mono text-[10px] text-muted-foreground">Try: <button className="text-[#315CFF] hover:underline" onClick={() => setPlaygroundClass("lu-grid lu-grid-3 lu-gap-4")}>lu-grid lu-grid-3</button></div></div><div className="lu-grid-paper relative flex min-h-[320px] items-center justify-center overflow-hidden border border-border p-8 dark:bg-card"><div className="absolute left-5 top-5 font-mono text-[9px] uppercase tracking-widest text-muted-foreground">Rendered output / {chipText}</div><div className={`${playgroundResult} max-w-xs bg-card p-6`}><div className="flex items-center justify-between"><div className="h-9 w-9 bg-[#315CFF]" /><span className="font-mono text-[9px] text-muted-foreground">LU / 001</span></div><p className="mt-8 font-display text-2xl font-bold tracking-tight">A surface with signal.</p><p className="mt-2 text-sm leading-6 text-muted-foreground">Change the class string. Watch the system respond.</p><div className="mt-6 flex gap-2"><span className="rounded-full bg-[#e7ebff] px-2 py-1 font-mono text-[9px] text-[#2848cd]">READY</span><span className="rounded-full border border-border px-2 py-1 font-mono text-[9px] text-muted-foreground">0.1.0</span></div></div></div></div></section>
-
-          <section id="install" className="border-b border-border/70 bg-[#315CFF] px-5 py-16 text-white lg:px-16 lg:py-20"><div className="grid gap-10 lg:grid-cols-[.8fr_1.2fr] lg:items-center"><div><SectionLabel index="05" children="Install once" /><h2 className="lu-display mt-5 text-4xl font-bold leading-none lg:text-6xl">Make room<br />for better defaults.</h2><p className="mt-6 max-w-md text-base leading-7 text-white/75">Drop in the stylesheet. Add the tiny script when you want theme switching and copy helpers. Nothing else required.</p></div><div className="border border-white/20 bg-black/15 p-5"><div className="mb-5 flex items-center justify-between"><div className="flex gap-1 rounded-full border border-white/15 p-1"><button className={`rounded-full px-3 py-1.5 font-mono text-[10px] uppercase tracking-widest ${activeTab === "cdn" ? "bg-white text-[#315CFF]" : "text-white/60"}`} onClick={() => setActiveTab("cdn")}>CSS</button><button className={`rounded-full px-3 py-1.5 font-mono text-[10px] uppercase tracking-widest ${activeTab === "script" ? "bg-white text-[#315CFF]" : "text-white/60"}`} onClick={() => setActiveTab("script")}>JS</button></div><CodeButton value={snippet} /></div><code className="block overflow-x-auto whitespace-pre-wrap font-mono text-xs leading-7 text-white/90">{snippet}</code><div className="mt-6 flex items-center gap-2 border-t border-white/15 pt-4 font-mono text-[10px] uppercase tracking-widest text-white/60"><Check size={14} className="text-[#c8f564]" /> No build step required</div></div></div></section>
-
-          <footer className="flex flex-col gap-4 px-5 py-8 font-mono text-[10px] uppercase tracking-widest text-muted-foreground sm:flex-row sm:items-center sm:justify-between lg:px-16"><div className="flex items-center gap-2 text-foreground"><span className="h-3 w-3 bg-[#315CFF]" /> LUMINA.CSS</div><div>OPEN SOURCE IN SPIRIT / BUILT FOR THE WEB</div><div>© 2026</div></footer>
-        </main>
-      </div>
+        <div className="mx-auto max-w-[1180px] px-4 py-9 sm:px-6 lg:px-12 lg:py-14">
+          {active === "overview" && <Overview onNavigate={go} />}
+          {active === "install" && <Install />}
+          {active === "foundations" && <Foundations />}
+          {active === "layout" && <LayoutDocs />}
+          {active === "components" && <ComponentsDocs />}
+          {active === "icons" && <IconsDocs tone={iconTone} setTone={setIconTone} />}
+          {active === "theming" && <Theming />}
+          {active === "motion" && <MotionDocs />}
+          {active === "accessibility" && <AccessibilityDocs />}
+        </div>
+        <footer className="border-t border-border/80 px-4 py-8 sm:px-6 lg:px-12"><div className="mx-auto flex max-w-[1180px] flex-col gap-3 font-mono text-[9px] uppercase tracking-widest text-muted-foreground sm:flex-row sm:justify-between"><span>Built for the open web / Lumina CSS</span><span>MIT / v0.1.0 / CDN ready</span></div></footer>
+      </main>
     </div>
-  );
+  </div>;
 }
+
+function DocsHeader({ index, eyebrow, title, body }: { index: string; eyebrow: string; title: string; body: string }) { return <div className="max-w-3xl"><SectionLabel index={index} children={eyebrow} /><h1 className="lu-display mt-6 text-[clamp(3rem,7vw,6.6rem)] font-bold leading-[.88] tracking-[-.06em]">{title}</h1><p className="mt-7 max-w-2xl text-base leading-8 text-muted-foreground sm:text-lg">{body}</p></div>; }
+function DocCard({ title, children, icon }: { title: string; children: React.ReactNode; icon?: IconName }) { return <div className="group border border-border border-t-2 border-t-[#315CFF]/60 bg-card p-5 transition hover:-translate-y-1 hover:shadow-[7px_7px_0_#315CFF]">{icon && <LuminaIcon name={icon} size={20} className="mb-8 text-[#315CFF]" />}<h3 className="font-display text-lg font-semibold">{title}</h3><div className="mt-3 text-sm leading-7 text-muted-foreground">{children}</div></div>; }
+function Overview({ onNavigate }: { onNavigate: (key: SectionKey) => void }) { return <><section className="relative overflow-hidden border-b border-border pb-16 lg:pb-24"><img src="/manus-storage/lumina-hero-texture_ee04af89.png" alt="" className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-30 mix-blend-multiply dark:opacity-15 dark:mix-blend-screen" /><div className="relative"><SectionLabel index="00" children="A new baseline for the web" /><h1 className="lu-display mt-7 max-w-5xl text-[clamp(4rem,11vw,10rem)] font-bold leading-[.84] tracking-[-.07em]">Build with<br /><span className="text-[#315CFF]">signal.</span></h1><p className="mt-9 max-w-2xl text-lg leading-8 text-muted-foreground">Lumina is a hybrid styling CDN for builders who want the speed of utilities, the clarity of components, and a visual language that feels authored.</p><div className="mt-9 flex flex-wrap gap-3"><button onClick={() => onNavigate("install")} className="rounded-full bg-foreground px-5 py-3.5 font-mono text-xs font-semibold uppercase tracking-widest text-background transition hover:-translate-y-1">Install Lumina ↗</button><button onClick={() => onNavigate("icons")} className="rounded-full border border-border px-5 py-3.5 font-mono text-xs font-semibold uppercase tracking-widest transition hover:border-[#315CFF] hover:text-[#315CFF]">Meet the icons</button></div><div className="mt-12 max-w-2xl border border-border bg-foreground p-4 text-background lu-shadow"><div className="mb-3 flex items-center justify-between font-mono text-[9px] uppercase tracking-widest text-background/50"><span>First signal / 00</span><span className="text-[#c8f564]">ready</span></div><code className="block overflow-x-auto whitespace-nowrap font-mono text-[11px] leading-7 text-background/85">&lt;link rel="stylesheet" href="https://cdn.lumina.css/lumina.css" /&gt;</code></div></div></section><section className="border-b border-border py-14 lg:py-20"><SectionLabel index="01" children="Why Lumina" /><div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4"><DocCard title="Readable utilities" icon="code">Classes are short, composable, and prefixed with <code className="text-[#315CFF]">lu-</code> so they stay clear beside your own CSS.</DocCard><DocCard title="Responsive by default" icon="grid">Core layout primitives collapse gracefully on small screens without requiring a second mental model.</DocCard><DocCard title="A real icon language" icon="spark">Geometric SVG symbols have a shared stroke, soft depth, and quiet visual personality.</DocCard><DocCard title="No build step" icon="layers">Drop in the stylesheet from a CDN. Add the script only when progressive enhancement helps.</DocCard></div></section><section className="py-14 lg:py-20"><div className="grid gap-8 lg:grid-cols-[.7fr_1.3fr] lg:items-end"><div><SectionLabel index="02" children="The map" /><h2 className="lu-display mt-5 text-4xl font-bold leading-none lg:text-6xl">Everything<br /><span className="text-[#315CFF]">in one route.</span></h2></div><div className="grid gap-3 sm:grid-cols-2"><button onClick={() => onNavigate("layout")} className="text-left"><DocCard title="Layout utilities" icon="grid">Grid, flex, gap, alignment, spacing, width, and responsive helpers for building the frame.</DocCard></button><button onClick={() => onNavigate("components")} className="text-left"><DocCard title="Components" icon="layers">Buttons, cards, badges, inputs, dividers, and surfaces with token-aware variants.</DocCard></button><button onClick={() => onNavigate("theming")} className="text-left"><DocCard title="Theming" icon="palette">CSS variables make the system yours without fighting the defaults.</DocCard></button><button onClick={() => onNavigate("accessibility")} className="text-left"><DocCard title="Accessible intent" icon="accessibility">Focus rings, reduced motion, semantic guidance, and contrast-minded defaults.</DocCard></button></div></div></section></>; }
+function Install() { return <><DocsHeader index="01" eyebrow="Installation" title="One import. Whole language." body="Lumina is intentionally easy to adopt. The CSS layer is enough for layout, surfaces, icons, and motion. The optional script adds theme persistence and copy helpers." /><div className="mt-12 grid gap-6 lg:grid-cols-2"><div><div className="mb-3 flex items-center justify-between"><span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">01 / stylesheet</span><span className="rounded-full bg-[#c8f564] px-2 py-1 font-mono text-[9px] font-semibold">REQUIRED</span></div><CodeBlock value={codeSnippets.css} /></div><div><div className="mb-3 flex items-center justify-between"><span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">02 / enhancement</span><span className="rounded-full border border-border px-2 py-1 font-mono text-[9px] font-semibold text-muted-foreground">OPTIONAL</span></div><CodeBlock value={codeSnippets.js} /></div></div><div className="mt-8 grid gap-3 sm:grid-cols-3"><DocCard title="1. Link">Add the stylesheet in your document head.</DocCard><DocCard title="2. Compose">Use prefixed utilities and components in your markup.</DocCard><DocCard title="3. Extend">Override the CSS variables when your brand needs a new signal.</DocCard></div></>; }
+function Foundations() { return <><DocsHeader index="02" eyebrow="Foundations" title="The tokens are the tone." body="Lumina ships with a warm paper canvas, ink-charcoal typography, Cobalt Signal actions, and acid-lime status states. Everything is exposed as a custom property." /><div className="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-4"><DocCard title="Cobalt Signal"><span className="mb-4 block h-12 bg-[#315CFF]" /><code className="text-[#315CFF]">--lu-cobalt: #315CFF</code></DocCard><DocCard title="Paper"><span className="mb-4 block h-12 border border-border bg-[#f7f7f3]" /><code>--lu-paper: #F7F7F3</code></DocCard><DocCard title="Ink"><span className="mb-4 block h-12 bg-[#111827]" /><code>--lu-ink: #111827</code></DocCard><DocCard title="Ready"><span className="mb-4 block h-12 bg-[#c8f564]" /><code>status only / #C8F564</code></DocCard></div><div className="mt-10 border border-border bg-card p-6"><SectionLabel index="02A" children="Typography" /><div className="mt-8 grid gap-6 md:grid-cols-3"><div><div className="font-display text-4xl font-bold">Space Grotesk</div><p className="mt-2 text-sm text-muted-foreground">Display and headings. Tight, technical, expressive.</p></div><div><div className="text-2xl font-semibold">DM Sans</div><p className="mt-2 text-sm text-muted-foreground">Body copy. Neutral, readable, generous.</p></div><div><div className="font-mono text-xl">IBM Plex Mono</div><p className="mt-2 text-sm text-muted-foreground">Code, labels, metadata, and system status.</p></div></div></div></>; }
+function LayoutDocs() { return <><DocsHeader index="03" eyebrow="Layout utilities" title="Frame the idea." body="Start with structure. Lumina’s layout primitives are small enough to memorize and expressive enough to build a full interface without a dependency chain." /><div className="mt-12 grid gap-8 lg:grid-cols-[1fr_.8fr]"><div><CodeBlock value={codeSnippets.grid} /><div className="mt-4 grid grid-cols-3 gap-3"><div className="border border-[#315CFF] bg-[#315CFF]/10 p-5 font-mono text-[10px] text-[#315CFF]">ONE</div><div className="border border-[#315CFF] bg-[#315CFF]/10 p-5 font-mono text-[10px] text-[#315CFF]">TWO</div><div className="border border-[#315CFF] bg-[#315CFF]/10 p-5 font-mono text-[10px] text-[#315CFF]">THREE</div></div></div><div className="space-y-3"><DocCard title="Grid" icon="grid"><code className="text-[#315CFF]">lu-grid</code> plus <code className="text-[#315CFF]">lu-grid-2/3/4</code> handles the main axis of your page.</DocCard><DocCard title="Flex" icon="layers"><code className="text-[#315CFF]">lu-flex</code>, alignment helpers, wrapping, and gap tokens keep smaller compositions fluid.</DocCard><DocCard title="Responsive rule" icon="arrow">At 760px, multi-column utility grids collapse to one column for a calm mobile reading order.</DocCard></div></div></>; }
+function ComponentsDocs() { return <><DocsHeader index="04" eyebrow="Components" title="Useful by default." body="Components are intentionally low ceremony. Use a base class, add a modifier, and keep your own markup in control." /><div className="mt-12 grid gap-6 lg:grid-cols-2"><div className="space-y-4"><div className="flex flex-wrap gap-3"><button className="lu-btn lu-btn-primary">Primary action <LuminaIcon name="arrow" size={14} /></button><button className="lu-btn lu-btn-outline">Outline action</button><span className="lu-badge">READY</span></div><input className="lu-input" placeholder="lu-input / focus me" /><div className="lu-card lu-shadow"><div className="flex items-center justify-between"><span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">lu-card</span><LuminaIcon name="spark" className="text-[#315CFF]" /></div><h3 className="mt-8 font-display text-2xl font-bold">A surface with signal.</h3><p className="mt-2 text-sm leading-7 text-muted-foreground">The base surface is quiet. The modifiers decide how much personality it carries.</p></div></div><CodeBlock value={'<button class="lu-btn lu-btn-primary">Action</button>\n<span class="lu-badge">READY</span>\n<article class="lu-card lu-shadow">...</article>'} /></div></>; }
+function IconsDocs({ tone, setTone }: { tone: "paper" | "ink" | "cobalt"; setTone: (tone: "paper" | "ink" | "cobalt") => void }) { return <><DocsHeader index="05" eyebrow="Lumina icons" title="A softer signal." body="Lumina icons are inline SVG symbols, not a font. They share a geometric vocabulary, keep their own accessible labels, and inherit the color of the context they live in." /><div className="mt-10 flex flex-wrap items-center gap-2"><span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">Preview tone</span>{(["paper", "ink", "cobalt"] as const).map((item) => <button key={item} onClick={() => setTone(item)} className={`rounded-full border px-3 py-2 font-mono text-[10px] uppercase tracking-widest transition ${tone === item ? "border-[#315CFF] bg-[#315CFF] text-white" : "border-border text-muted-foreground hover:border-[#315CFF]"}`}>{item}</button>)}</div><div className={`mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6 ${tone === "ink" ? "bg-foreground text-background" : tone === "cobalt" ? "bg-[#315CFF] text-white" : "bg-card text-foreground"} border border-border p-4 transition`}>{iconNames.map((name) => <div key={name} className="flex min-h-28 flex-col items-center justify-center gap-4 border border-current/10 bg-background/10 p-4 text-center"><div className="lu-neu-icon"><LuminaIcon name={name} size={25} /></div><span className="font-mono text-[9px] uppercase tracking-widest">{name}</span></div>)}</div><div className="mt-8 grid gap-6 lg:grid-cols-2"><CodeBlock value={codeSnippets.icons} /><div className="border border-border bg-card p-6"><SectionLabel index="05A" children="Why SVG" /><p className="mt-5 text-sm leading-7 text-muted-foreground">SVG keeps the symbol crisp at every size, inherits CSS color, supports `aria-hidden` or a visible label, and avoids the baseline and loading tradeoffs of an icon font.</p><div className="mt-6 flex items-center gap-3 rounded-sm border border-border bg-background p-4"><LuminaIcon name="accessibility" className="text-[#315CFF]" /><span className="font-mono text-[10px]">Icons should clarify intent, not become the intent.</span></div></div></div></>; }
+function Theming() { return <><DocsHeader index="06" eyebrow="Theming" title="Make it yours." body="Lumina uses CSS custom properties so you can shift the system without rewriting its grammar. Keep the cobalt slash, or replace it with your own signal." /><div className="mt-12 grid gap-6 lg:grid-cols-2"><CodeBlock value={':root {\n  --lu-cobalt: #315CFF;\n  --lu-paper: #F7F7F3;\n  --lu-ink: #111827;\n  --lu-radius: .55rem;\n}'} /><div className="border border-border bg-card p-6"><SectionLabel index="06A" children="Dark mode" /><p className="mt-5 text-sm leading-7 text-muted-foreground">Set <code className="text-[#315CFF]">data-lu-theme="dark"</code> on the root element. The CDN script remembers the user’s choice when you use the theme toggle helper.</p><div className="mt-6 rounded-sm bg-foreground p-5 text-background"><code className="font-mono text-xs">&lt;html data-lu-theme="dark"&gt;</code></div></div></div></>; }
+function MotionDocs() { return <><DocsHeader index="07" eyebrow="Motion" title="Move with intent." body="Motion is short, interruptible, and reserved for feedback. Lumina avoids ornamental loops and respects reduced-motion preferences." /><div className="mt-12 grid gap-3 md:grid-cols-3"><DocCard title="Press" icon="arrow">Buttons compress to 97% on active. It makes the interface feel listened to.</DocCard><DocCard title="Lift" icon="spark">Cards lift by a few pixels on hover, with a crisp shadow instead of a floating cloud.</DocCard><DocCard title="Reveal" icon="motion">Content enters with opacity and translate only, keeping layout stable and GPU-friendly.</DocCard></div><div className="mt-8"><CodeBlock value={'@media (prefers-reduced-motion: reduce) {\n  *, *::before, *::after {\n    animation-duration: .01ms !important;\n    transition-duration: .01ms !important;\n  }\n}'} /></div></>; }
+function AccessibilityDocs() { return <><DocsHeader index="08" eyebrow="Accessibility" title="Make the signal clear." body="A visual system is only useful when people can read, focus, navigate, and understand it. Lumina’s defaults are designed to leave room for semantic HTML and accessible intent." /><div className="mt-12 grid gap-3 md:grid-cols-2"><DocCard title="Focus is visible" icon="accessibility">Do not remove the focus ring. Pair interactive controls with a strong visible focus state.</DocCard><DocCard title="Color is not the only cue" icon="palette">Use text, iconography, and status labels alongside color so meaning survives different visual contexts.</DocCard><DocCard title="Icons have a role" icon="spark">Decorative icons are hidden from assistive technology. Meaningful icons receive a label or adjacent text.</DocCard><DocCard title="Mobile is first" icon="grid">Keep touch targets generous and let dense multi-column layouts collapse into a readable sequence.</DocCard></div><div className="mt-8 border border-[#315CFF]/30 bg-[#315CFF]/8 p-6"><div className="flex items-start gap-3"><LuminaIcon name="check" className="mt-1 text-[#315CFF]" /><p className="text-sm leading-7">Use the visual system to support content hierarchy, not to replace semantic structure. Lumina styles the interface; your markup carries the meaning.</p></div></div></>; }
