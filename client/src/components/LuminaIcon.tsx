@@ -1,7 +1,7 @@
 /* Editorial Utility direction — custom Lumina symbols use a soft, geometric SVG vocabulary instead of a generic icon font. */
 import type { ReactNode, SVGProps } from "react";
 
-type IconName = "spark" | "grid" | "layers" | "code" | "palette" | "motion" | "accessibility" | "arrow" | "check" | "menu" | "close" | "sun" | "moon" | "home" | "user" | "settings" | "bell" | "heart" | "star" | "lock" | "calendar" | "download" | "upload" | "globe" | "github" | "command" | "folder" | "database" | "monitor" | "tablet" | "phone" | "plus" | "minus" | "search" | "dashboard" | "chart" | "wallet" | "cart" | "filter" | "sort" | "edit" | "trash" | "eye" | "eyeOff" | "mail" | "message" | "help" | "info" | "warning" | "success" | "clock" | "logout" | "refresh";
+type IconName = "spark" | "grid" | "layers" | "code" | "palette" | "motion" | "accessibility" | "arrow" | "check" | "menu" | "close" | "sun" | "moon" | "home" | "user" | "settings" | "bell" | "heart" | "star" | "lock" | "calendar" | "download" | "upload" | "globe" | "github" | "command" | "folder" | "database" | "monitor" | "tablet" | "phone" | "plus" | "minus" | "search" | "dashboard" | "chart" | "wallet" | "cart" | "filter" | "sort" | "edit" | "trash" | "eye" | "eyeOff" | "mail" | "message" | "help" | "info" | "warning" | "success" | "clock" | "logout" | "refresh" | "activity" | "gauge" | "users";
 
 const paths: Record<IconName, ReactNode> = {
   spark: <><path d="M12 2.5 14.2 9l6.3 3-6.3 3-2.2 6.5L9.8 15 3.5 12l6.3-3Z" /><path d="m18.5 3 .6 2.1L21 6l-1.9.9-.6 2.1-.7-2.1L16 6l1.8-.9Z" /></>,
@@ -57,6 +57,9 @@ const paths: Record<IconName, ReactNode> = {
   clock: <><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></>,
   logout: <><path d="M10 4H5v16h5M14 8l4 4-4 4M18 12H9" /></>,
   refresh: <><path d="M20 11a8 8 0 0 0-14.8-3L3 11" /><path d="M3 5v6h6M4 13a8 8 0 0 0 14.8 3L21 13" /><path d="M21 19v-6h-6" /></>,
+  activity: <><path d="M3 12h4l2-6 4 12 2-6h6" /></>,
+  gauge: <><path d="M4 16a8 8 0 1 1 16 0" /><path d="M12 12l4-3M7 18h10" /></>,
+  users: <><circle cx="9" cy="8" r="3" /><path d="M3 20a6 6 0 0 1 12 0M16 6.5a3 3 0 0 1 0 5.8M17 14a5 5 0 0 1 4 6" /></>,
 };
 
 export function LuminaIcon({ name, size = 18, className = "", ...props }: SVGProps<SVGSVGElement> & { name: IconName; size?: number }) {

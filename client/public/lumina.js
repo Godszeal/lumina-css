@@ -54,7 +54,10 @@
     success: '<circle cx="12" cy="12" r="9"/><path d="m8 12 2.5 2.5L16 9"/>',
     clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
     logout: '<path d="M10 4H5v16h5M14 8l4 4-4 4M18 12H9"/>',
-    refresh: '<path d="M20 11a8 8 0 0 0-14.8-3L3 11M3 5v6h6M4 13a8 8 0 0 0 14.8 3L21 13M21 19v-6h-6"/>'
+    refresh: '<path d="M20 11a8 8 0 0 0-14.8-3L3 11M3 5v6h6M4 13a8 8 0 0 0 14.8 3L21 13M21 19v-6h-6"/>',
+    activity: '<path d="M3 12h4l2-6 4 12 2-6h6"/>',
+    gauge: '<path d="M4 16a8 8 0 1 1 16 0M12 12l4-3M7 18h10"/>',
+    users: '<circle cx="9" cy="8" r="3"/><path d="M3 20a6 6 0 0 1 12 0M16 6.5a3 3 0 0 1 0 5.8M17 14a5 5 0 0 1 4 6"/>'
   };
   function icon(name, label) {
     var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
@@ -73,7 +76,12 @@
     root.querySelectorAll('[data-lu-copy]').forEach(function (button) { button.addEventListener('click', function () { var text = button.dataset.luCopy; navigator.clipboard && navigator.clipboard.writeText(text); var before = button.innerHTML; button.innerHTML = 'Copied'; setTimeout(function () { button.innerHTML = before; }, 1400); }); });
     root.querySelectorAll('[data-lu-theme-toggle]').forEach(function (button) { button.addEventListener('click', function () { var next = document.documentElement.dataset.luTheme === 'dark' ? 'light' : 'dark'; document.documentElement.dataset.luTheme = next; localStorage.setItem('lu-theme', next); }); });
     root.querySelectorAll('[data-lu-grid-toggle]').forEach(function (button) { button.addEventListener('click', function () { var next = document.documentElement.dataset.luGrid === 'off' ? 'on' : 'off'; document.documentElement.dataset.luGrid = next === 'off' ? 'off' : 'on'; localStorage.setItem('lu-grid', next === 'off' ? 'off' : 'on'); }); });
+    root.querySelectorAll('[data-lu-dropdown-trigger]').forEach(function (button) { button.addEventListener('click', function () { var dropdown = button.closest('[data-lu-dropdown]'); if (!dropdown) return; var open = dropdown.dataset.luOpen === 'true'; root.querySelectorAll('[data-lu-dropdown][data-lu-open="true"]').forEach(function (item) { item.dataset.luOpen = 'false'; }); dropdown.dataset.luOpen = open ? 'false' : 'true'; button.setAttribute('aria-expanded', open ? 'false' : 'true'); }); });
+    root.querySelectorAll('[data-lu-modal-open]').forEach(function (button) { button.addEventListener('click', function () { var modal = document.querySelector(button.dataset.luModalOpen); if (!modal) return; modal.dataset.luOpen = 'true'; modal.setAttribute('aria-hidden', 'false'); document.body.style.overflow = 'hidden'; var close = modal.querySelector('[data-lu-modal-close]'); if (close) close.focus(); }); });
+    root.querySelectorAll('[data-lu-modal-close]').forEach(function (button) { button.addEventListener('click', function () { var modal = button.closest('[data-lu-modal]'); if (!modal) return; modal.dataset.luOpen = 'false'; modal.setAttribute('aria-hidden', 'true'); document.body.style.overflow = ''; }); });
   }
-  global.Lumina = { boot: boot, icon: icon, icons: Object.keys(paths), version: '0.4.0' };
+  document.addEventListener('keydown', function (event) { if (event.key === 'Escape') { document.querySelectorAll('[data-lu-dropdown][data-lu-open="true"]').forEach(function (item) { item.dataset.luOpen = 'false'; }); document.querySelectorAll('[data-lu-modal][data-lu-open="true"]').forEach(function (modal) { modal.dataset.luOpen = 'false'; modal.setAttribute('aria-hidden', 'true'); document.body.style.overflow = ''; }); } });
+  document.addEventListener('click', function (event) { var target = event.target; if (!target.closest('[data-lu-dropdown]')) document.querySelectorAll('[data-lu-dropdown][data-lu-open="true"]').forEach(function (item) { item.dataset.luOpen = 'false'; }); });
+  global.Lumina = { boot: boot, icon: icon, icons: Object.keys(paths), version: '0.5.0' };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () { boot(); }); else boot();
 })(window);

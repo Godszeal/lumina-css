@@ -1,0 +1,17 @@
+{
+  "name": "Lumina CSS",
+  "short_name": "Lumina",
+  "description": "A CDN-first CSS framework for responsive interfaces, dashboards, forms, icons, motion, and themes.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f7f7f3",
+  "theme_color": "#315CFF",
+  "icons": [
+    {
+      "src": "/manus-storage/lumina-mark_a7108f76.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

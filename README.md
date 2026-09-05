@@ -8,7 +8,7 @@ Run `pnpm install` and then `pnpm dev`. The documentation is a client-only React
 
 ## CDN assets
 
-The current distribution version is `0.4.0`.
+The current distribution version is `0.5.0`.
 
 ```html
 <link rel="stylesheet" href="/lumina.css" />
@@ -35,18 +35,18 @@ A stable public CDN URL cannot be created from a local sandbox alone. The assets
 
 1. Create a public GitHub repository for the distribution files, or publish the package to npm.
 2. Place `lumina.css` and `lumina.js` in the repository root or a versioned `dist/` directory.
-3. Tag a release such as `v0.4.0`.
+3. Tag a release such as `v0.5.0`.
 4. Use jsDelivr with the tagged release:
 
 ```text
-https://cdn.jsdelivr.net/gh/<public-owner>/<public-repo>@v0.4.0/lumina.css
-https://cdn.jsdelivr.net/gh/<public-owner>/<public-repo>@v0.4.0/lumina.js
+https://cdn.jsdelivr.net/gh/<public-owner>/<public-repo>@v0.5.0/lumina.css
+https://cdn.jsdelivr.net/gh/<public-owner>/<public-repo>@v0.5.0/lumina.js
 ```
 
-The repository must be public for jsDelivr to fetch it. The current public release is `v0.4.0` in `Godszeal/lumina-css`.
+The repository must be public for jsDelivr to fetch it. The current public release is `v0.5.0` in `Godszeal/lumina-css`.
 
 
-## v0.4.0 improvements
+## v0.5.0 improvements
 
 Lumina now uses a neutral system-font stack by default. Custom display and monospace fonts are optional overrides through `--lu-font-display` and `--lu-font-mono`; the CDN no longer requires a web-font request.
 

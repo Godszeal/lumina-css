@@ -21,3 +21,10 @@
 - [x] Add neutral system-font defaults and remove required custom font loading.
 - [x] Expand dashboard/form icon coverage and document recommended icon additions.
 - [x] Test and publish the next framework release.
+- [ ] Research Tailwind utility categories and document original Lumina equivalents.
+- [ ] Add activity, gauge, and users icons with runtime and React support.
+- [ ] Add accessible dropdown and modal components with keyboard and escape behavior.
+- [ ] Add sample-code documentation and live component previews.
+- [ ] Add SEO metadata, Open Graph image, favicon, robots, and sitemap assets.
+- [ ] Add additional motion, transition, theme, and visual utility classes.
+- [ ] Verify every documentation section at mobile width and publish the next release.
