@@ -8,7 +8,7 @@ Run `pnpm install` and then `pnpm dev`. The documentation is a client-only React
 
 ## CDN assets
 
-The current distribution version is `0.2.0`.
+The current distribution version is `0.3.0`.
 
 ```html
 <link rel="stylesheet" href="/lumina.css" />
@@ -35,12 +35,12 @@ A stable public CDN URL cannot be created from a local sandbox alone. The assets
 
 1. Create a public GitHub repository for the distribution files, or publish the package to npm.
 2. Place `lumina.css` and `lumina.js` in the repository root or a versioned `dist/` directory.
-3. Tag a release such as `v0.2.0`.
+3. Tag a release such as `v0.3.0`.
 4. Use jsDelivr with the tagged release:
 
 ```text
-https://cdn.jsdelivr.net/gh/<public-owner>/<public-repo>@v0.2.0/lumina.css
-https://cdn.jsdelivr.net/gh/<public-owner>/<public-repo>@v0.2.0/lumina.js
+https://cdn.jsdelivr.net/gh/<public-owner>/<public-repo>@v0.3.0/lumina.css
+https://cdn.jsdelivr.net/gh/<public-owner>/<public-repo>@v0.3.0/lumina.js
 ```
 
-The repository must be public for jsDelivr to fetch it. Confirm the public repository name and owner before exposing the assets.
+The repository must be public for jsDelivr to fetch it. The current public release is `v0.3.0` in `Godszeal/lumina-css`.

@@ -8,6 +8,10 @@
 - [x] Add versioned CDN asset metadata and a clear Vercel deployment guide.
 - [x] Run type checking, production build, and desktop/mobile visual verification.
 - [x] Confirm whether the user wants a public GitHub repository before exposing assets through jsDelivr.
-- [ ] Create the public GitHub repository and push the prepared distribution.
-- [ ] Create and push the v0.2.0 release tag.
-- [ ] Validate the jsDelivr CSS and JavaScript URLs.
+- [x] Create the public GitHub repository and push the prepared distribution.
+- [x] Create and push the v0.2.0 release tag.
+- [x] Validate the jsDelivr CSS and JavaScript URLs.
+- [ ] Add expanded neumorphic icon families and accessible CDN icon names.
+- [ ] Add advanced grid utilities for auto-fit, masonry-like rows, editorial spans, and responsive areas.
+- [ ] Update documentation examples and icon/grid references.
+- [ ] Run checks, publish the next GitHub tag, and validate the new CDN URLs.
