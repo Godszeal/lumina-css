@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Lumina CSS — a complete landing page built with the Lumina CSS CDN." />
+    <title>Northstar — Build with signal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Godszeal/lumina-css@v0.3.0/client/public/lumina.css" />
+    <style>
+      :root { --lu-cobalt: #315cff; --lu-paper: #f7f7f3; --lu-ink: #111827; --lu-radius: .8rem; }
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body { margin: 0; background: var(--lu-paper); color: var(--lu-ink); font-family: "DM Sans", sans-serif; background-image: linear-gradient(rgba(17,24,39,.08) 1px, transparent 1px), linear-gradient(90deg, rgba(17,24,39,.08) 1px, transparent 1px); background-size: 32px 32px; }
+      [data-lu-theme="dark"] body { background-image: linear-gradient(rgba(247,247,243,.09) 1px, transparent 1px), linear-gradient(90deg, rgba(247,247,243,.09) 1px, transparent 1px); }
+      .site-shell { min-height: 100vh; overflow: hidden; }
+      .display { font-family: "Space Grotesk", sans-serif; letter-spacing: -.065em; }
+      .mono { font-family: "IBM Plex Mono", monospace; letter-spacing: .08em; text-transform: uppercase; }
+      .muted { color: color-mix(in srgb, var(--lu-ink) 58%, transparent); }
+      .hero { padding: 5.5rem 0 4.5rem; position: relative; }
+      .hero-mark { position: absolute; right: -5rem; top: 5rem; width: 30rem; height: 22rem; background: rgba(49,92,255,.16); clip-path: polygon(42% 0, 100% 0, 58% 100%, 0 100%); transform: rotate(-9deg); pointer-events: none; }
+      .eyebrow { display: flex; align-items: center; gap: .8rem; color: var(--lu-cobalt); font: 600 .68rem/1 "IBM Plex Mono", monospace; letter-spacing: .14em; text-transform: uppercase; }
+      .eyebrow::before { content: ""; width: 2rem; height: 1px; background: var(--lu-cobalt); }
+      .hero h1 { max-width: 900px; margin: 1.5rem 0 1.25rem; font-size: clamp(3.7rem, 9vw, 8.5rem); line-height: .86; }
+      .hero h1 span { color: var(--lu-cobalt); }
+      .hero-copy { max-width: 620px; font-size: clamp(1rem, 2vw, 1.25rem); line-height: 1.75; }
+      .section { padding: 5rem 0; border-top: 1px solid var(--lu-line); }
+      .section-title { font-size: clamp(2.5rem, 6vw, 5.2rem); line-height: .92; margin: 1rem 0 2.5rem; }
+      .feature-card { min-height: 14rem; display: flex; flex-direction: column; justify-content: space-between; }
+      .feature-card h3 { font-family: "Space Grotesk", sans-serif; font-size: 1.25rem; margin: 1.25rem 0 .5rem; }
+      .feature-card p { line-height: 1.7; margin: 0; }
+      .neumorphic-panel { padding: 2rem; border-radius: 1.25rem; background: var(--lu-paper); box-shadow: inset 2px 2px 4px rgba(255,255,255,.85), 14px 14px 24px rgba(17,24,39,.08), -8px -8px 18px rgba(255,255,255,.55); }
+      [data-lu-theme="dark"] .neumorphic-panel { box-shadow: inset 2px 2px 4px rgba(255,255,255,.05), 14px 14px 24px rgba(0,0,0,.2), -8px -8px 18px rgba(255,255,255,.02); }
+      .metric { padding: 1.3rem 0; border-top: 1px solid var(--lu-line); }
+      .metric strong { display: block; font: 700 clamp(2rem, 4vw, 3.4rem)/1 "Space Grotesk", sans-serif; letter-spacing: -.06em; }
+      .metric span { display: block; margin-top: .4rem; font: .65rem/1.4 "IBM Plex Mono", monospace; letter-spacing: .12em; text-transform: uppercase; }
+      .quote { font: 500 clamp(1.5rem, 3vw, 2.5rem)/1.2 "Space Grotesk", sans-serif; letter-spacing: -.04em; }
+      .code-panel { background: var(--lu-ink); color: var(--lu-paper); border-radius: var(--lu-radius); padding: 1.3rem; overflow: auto; box-shadow: 10px 10px 0 rgba(17,24,39,.12); }
+      .code-panel code { font: .75rem/2 "IBM Plex Mono", monospace; white-space: pre; }
+      .footer { padding: 2.5rem 0; border-top: 1px solid var(--lu-line); }
+      @media (max-width: 760px) { .hero { padding-top: 3.8rem; } .hero-mark { right: -10rem; top: 8rem; transform: scale(.8) rotate(-9deg); } .section { padding: 3.5rem 0; } .hide-mobile { display: none; } }
+    </style>
+  </head>
+  <body>
+    <div class="site-shell">
+      <header class="lu-container lu-flex lu-items-center lu-justify-between lu-py-3" style="border-bottom: 1px solid var(--lu-line);">
+        <a href="#top" class="lu-flex lu-items-center lu-gap-2" style="color: var(--lu-ink); text-decoration: none;">
+          <span class="lu-icon-button" style="background: var(--lu-cobalt); color: white; border: 0; box-shadow: 4px 4px 0 var(--lu-ink);"><span data-lu-icon="spark"></span></span>
+          <span class="display" style="font-weight: 700; letter-spacing: -.04em;">NORTHSTAR<span style="color: var(--lu-cobalt);"> / </span>STUDIO</span>
+        </a>
+        <nav class="lu-flex lu-items-center lu-gap-4 hide-mobile" aria-label="Primary navigation">
+          <a href="#method" class="mono muted" style="font-size: .62rem; text-decoration: none;">Method</a>
+          <a href="#proof" class="mono muted" style="font-size: .62rem; text-decoration: none;">Proof</a>
+          <a href="#contact" class="mono muted" style="font-size: .62rem; text-decoration: none;">Contact</a>
+        </nav>
+        <div class="lu-flex lu-items-center lu-gap-2">
+          <button class="lu-icon-button" data-lu-theme-toggle aria-label="Toggle dark mode"><span data-lu-icon="moon"></span></button>
+          <a href="#contact" class="lu-btn lu-btn-primary">Start a project <span data-lu-icon="arrow"></span></a>
+        </div>
+      </header>
+
+      <main id="top">
+        <section class="lu-container hero">
+          <div class="hero-mark"></div>
+          <div class="eyebrow">Independent digital studio / 2026</div>
+          <h1 class="display">Make useful things feel <span>inevitable.</span></h1>
+          <p class="hero-copy muted">Northstar helps ambitious teams turn complex products into clear, confident digital experiences. Strategy, identity, and interface — shaped as one system.</p>
+          <div class="lu-flex lu-flex-wrap lu-items-center lu-gap-3" style="margin-top: 2rem;">
+            <a href="#method" class="lu-btn lu-btn-primary">See our method <span data-lu-icon="arrow"></span></a>
+            <a href="#proof" class="lu-btn lu-btn-outline">View the proof</a>
+          </div>
+          <div class="lu-grid lu-grid-12 lu-gap-4" style="margin-top: 4.5rem;">
+            <div class="lu-col-span-8 code-panel"><div class="mono" style="font-size: .6rem; color: rgba(247,247,243,.5); margin-bottom: .6rem;">NORTHSTAR / SYSTEM NOTE</div><code>const northstar = {
+  clarity: "earned",
+  motion: "intentional",
+  detail: "visible"
+};</code></div>
+            <div class="lu-col-span-4 neumorphic-panel"><div class="lu-flex lu-items-center lu-justify-between"><span class="mono muted" style="font-size: .62rem;">Signal / 001</span><span class="lu-badge">READY</span></div><p class="display" style="font-size: 1.55rem; line-height: 1; margin: 3rem 0 0;">Strategy that<br /><span style="color: var(--lu-cobalt);">ships beautifully.</span></p></div>
+          </div>
+        </section>
+
+        <section id="method" class="lu-container section">
+          <div class="eyebrow">01 / Method</div>
+          <h2 class="display section-title">Less noise.<br /><span style="color: var(--lu-cobalt);">More signal.</span></h2>
+          <div class="lu-grid lu-grid-editorial lu-gap-4">
+            <article class="lu-card feature-card"><div><div class="lu-neu-icon"><span data-lu-icon="search"></span></div><h3>Find the true problem</h3><p class="muted">We turn fuzzy ambition into a sharp brief, a clear audience, and an outcome worth measuring.</p></div><span class="mono muted" style="font-size: .62rem;">01 / Diagnose</span></article>
+            <article class="lu-card feature-card"><div><div class="lu-neu-icon"><span data-lu-icon="layers"></span></div><h3>Design the system</h3><p class="muted">We build the visual language, interaction patterns, and content structure that make the product coherent.</p></div><span class="mono muted" style="font-size: .62rem;">02 / Compose</span></article>
+            <article class="lu-card feature-card"><div><div class="lu-neu-icon"><span data-lu-icon="spark"></span></div><h3>Ship with confidence</h3><p class="muted">We leave your team with the components, decisions, and momentum to keep making good work.</p></div><span class="mono muted" style="font-size: .62rem;">03 / Launch</span></article>
+          </div>
+        </section>
+
+        <section id="proof" class="lu-container section">
+          <div class="lu-grid lu-grid-12 lu-gap-8 lu-items-center">
+            <div class="lu-col-span-7"><div class="eyebrow">02 / Proof</div><h2 class="display section-title">Clarity is a<br /><span style="color: var(--lu-cobalt);">competitive edge.</span></h2><p class="muted" style="font-size: 1.1rem; line-height: 1.8; max-width: 38rem;">When the system is clear, teams move faster. Decisions get easier. The interface stops asking for attention and starts earning trust.</p><div class="lu-grid lu-grid-auto lu-gap-4" style="margin-top: 2.5rem; --lu-min: 9rem;"><div class="metric"><strong>3.2×</strong><span>Faster handoff</span></div><div class="metric"><strong>42%</strong><span>Less rework</span></div><div class="metric"><strong>01</strong><span>Shared language</span></div></div></div>
+            <div class="lu-col-span-5"><div class="neumorphic-panel"><div class="lu-flex lu-items-center lu-justify-between"><span class="mono muted" style="font-size: .62rem;">Client note / 002</span><span data-lu-icon="heart" style="color: var(--lu-cobalt);"></span></div><p class="quote" style="margin: 3rem 0 2rem;">“It feels like the whole team can finally see the same thing.”</p><div class="lu-flex lu-items-center lu-gap-3"><span class="lu-neu-icon"><span data-lu-icon="user"></span></span><div><strong style="display: block;">Ari Mason</strong><span class="muted" style="font-size: .82rem;">Product lead, Fieldwork</span></div></div></div></div>
+          </div>
+        </section>
+
+        <section class="lu-container section">
+          <div class="eyebrow">03 / Capabilities</div>
+          <div class="lu-flex lu-items-end lu-justify-between lu-gap-4" style="margin-bottom: 2.5rem;"><h2 class="display section-title" style="margin-bottom: 0;">A system that<br /><span style="color: var(--lu-cobalt);">holds together.</span></h2><span class="mono muted hide-mobile" style="font-size: .62rem;">Design / Content / Technology</span></div>
+          <div class="lu-grid lu-grid-auto lu-gap-4" style="--lu-min: 15rem;">
+            <article class="lu-card"><span data-lu-icon="palette" style="color: var(--lu-cobalt);"></span><h3 class="display" style="font-size: 1.25rem;">Identity</h3><p class="muted" style="line-height: 1.7;">Positioning, naming, visual language, and the small details that make a brand recognizable.</p><a href="#contact" class="mono" style="font-size: .62rem; color: var(--lu-cobalt); text-decoration: none;">Explore identity ↗</a></article>
+            <article class="lu-card"><span data-lu-icon="grid" style="color: var(--lu-cobalt);"></span><h3 class="display" style="font-size: 1.25rem;">Interface</h3><p class="muted" style="line-height: 1.7;">Responsive product experiences with a clear hierarchy and enough character to be remembered.</p><a href="#contact" class="mono" style="font-size: .62rem; color: var(--lu-cobalt); text-decoration: none;">Explore interface ↗</a></article>
+            <article class="lu-card"><span data-lu-icon="command" style="color: var(--lu-cobalt);"></span><h3 class="display" style="font-size: 1.25rem;">Enablement</h3><p class="muted" style="line-height: 1.7;">Guidelines, components, and systems that help internal teams keep the signal intact.</p><a href="#contact" class="mono" style="font-size: .62rem; color: var(--lu-cobalt); text-decoration: none;">Explore enablement ↗</a></article>
+          </div>
+        </section>
+
+        <section id="contact" class="lu-container section">
+          <div class="lu-grid lu-grid-12 lu-gap-8">
+            <div class="lu-col-span-7"><div class="eyebrow">04 / Contact</div><h2 class="display section-title">Have a hard thing<br /><span style="color: var(--lu-cobalt);">worth making clear?</span></h2><p class="muted" style="font-size: 1.1rem; line-height: 1.8; max-width: 34rem;">Tell us what you are building, what is stuck, and what a better version would unlock. We will reply with a useful next step.</p></div>
+            <form class="lu-col-span-5 lu-card" onsubmit="event.preventDefault(); this.querySelector('[data-form-status]').textContent = 'Message staged — we will be in touch.';">
+              <label class="mono muted" for="name" style="font-size: .62rem;">Your name</label><input id="name" class="lu-input" required placeholder="Jane Doe" style="margin: .5rem 0 1.2rem;" />
+              <label class="mono muted" for="email" style="font-size: .62rem;">Email address</label><input id="email" class="lu-input" type="email" required placeholder="jane@example.com" style="margin: .5rem 0 1.2rem;" />
+              <label class="mono muted" for="message" style="font-size: .62rem;">What are you making?</label><textarea id="message" class="lu-input" rows="4" required placeholder="A product that needs a clearer signal..." style="margin: .5rem 0 1.2rem; resize: vertical;"></textarea>
+              <button class="lu-btn lu-btn-primary lu-w-full" type="submit">Send the brief <span data-lu-icon="arrow"></span></button><p data-form-status class="mono muted" style="font-size: .58rem; margin: 1rem 0 0;" aria-live="polite"></p>
+            </form>
+          </div>
+        </section>
+      </main>
+
+      <footer class="lu-container footer lu-flex lu-flex-wrap lu-items-center lu-justify-between lu-gap-4"><span class="mono" style="font-size: .62rem;">Northstar / Independent digital studio</span><span class="muted" style="font-size: .82rem;">Built with Lumina CSS v0.3.0</span><button class="lu-btn lu-btn-outline" data-lu-copy="https://cdn.jsdelivr.net/gh/Godszeal/lumina-css@v0.3.0/client/public/lumina.css"><span data-lu-icon="code"></span> Copy CDN</button></footer>
+    </div>
+    <script defer src="https://cdn.jsdelivr.net/gh/Godszeal/lumina-css@v0.3.0/client/public/lumina.js"></script>
+  </body>
+</html>

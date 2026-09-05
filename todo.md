@@ -15,9 +15,9 @@
 - [x] Add advanced grid utilities for auto-fit, masonry-like rows, editorial spans, and responsive areas.
 - [x] Update documentation examples and icon/grid references.
 - [x] Run checks, publish the next GitHub tag, and validate the new CDN URLs.
-- [ ] Research Font Awesome icon families, distribution, and licensing boundaries.
-- [ ] Add reusable Lumina animation utilities and reduced-motion behavior.
-- [ ] Add persistent dark mode and grid-background toggle utilities.
-- [ ] Add neutral system-font defaults and remove required custom font loading.
-- [ ] Expand dashboard/form icon coverage and document recommended icon additions.
-- [ ] Test and publish the next framework release.
+- [x] Research Font Awesome icon families, distribution, and licensing boundaries.
+- [x] Add reusable Lumina animation utilities and reduced-motion behavior.
+- [x] Add persistent dark mode and grid-background toggle utilities.
+- [x] Add neutral system-font defaults and remove required custom font loading.
+- [x] Expand dashboard/form icon coverage and document recommended icon additions.
+- [x] Test and publish the next framework release.
