@@ -34,10 +34,10 @@
 - [x] Add responsive dashboard documentation and mobile table behavior.
 - [x] Document additional original Lumina features based on the Tailwind review.
 - [x] Test, publish, and deliver the dashboard showcase release.
-- [ ] Define modular CDN bundle boundaries and Admin Kit component API.
-- [ ] Build tables, forms, tabs, drawers, toasts, skeletons, and command palette previews.
-- [ ] Publish core, components, interactions, icons, dashboard, and all-in-one CDN bundles.
-- [ ] Generate a searchable API reference for classes and data attributes.
-- [ ] Update documentation with verified v0.6.0 CDN URLs and modular bundle guidance.
-- [ ] Add accessibility tests, mobile visual tests, and bundle-size checks.
-- [ ] Test, publish, and deliver the Admin Kit release.
+- [x] Define modular CDN bundle boundaries and Admin Kit component API.
+- [x] Build tables, forms, tabs, drawers, toasts, skeletons, and command palette previews.
+- [x] Publish core, components, interactions, icons, dashboard, and all-in-one CDN bundles.
+- [x] Generate a searchable API reference for classes and data attributes.
+- [x] Update documentation with verified v0.7.0 CDN URLs and modular bundle guidance.
+- [x] Add accessibility tests, mobile visual tests, and bundle-size checks.
+- [x] Test, publish, and deliver the Admin Kit release.
