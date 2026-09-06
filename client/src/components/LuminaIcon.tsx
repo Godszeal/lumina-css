@@ -1,7 +1,7 @@
 /* Editorial Utility direction — custom Lumina symbols use a soft, geometric SVG vocabulary instead of a generic icon font. */
 import type { ReactNode, SVGProps } from "react";
 
-type IconName = "spark" | "grid" | "layers" | "code" | "palette" | "motion" | "accessibility" | "arrow" | "check" | "menu" | "close" | "sun" | "moon" | "home" | "user" | "settings" | "bell" | "heart" | "star" | "lock" | "calendar" | "download" | "upload" | "globe" | "github" | "command" | "folder" | "database" | "monitor" | "tablet" | "phone" | "plus" | "minus" | "search" | "dashboard" | "chart" | "wallet" | "cart" | "filter" | "sort" | "edit" | "trash" | "eye" | "eyeOff" | "mail" | "message" | "help" | "info" | "warning" | "success" | "clock" | "logout" | "refresh" | "activity" | "gauge" | "users";
+type IconName = "spark" | "grid" | "layers" | "code" | "palette" | "motion" | "accessibility" | "arrow" | "check" | "menu" | "close" | "sun" | "moon" | "home" | "user" | "settings" | "bell" | "heart" | "star" | "lock" | "calendar" | "download" | "upload" | "globe" | "github" | "google" | "x" | "facebook" | "linkedin" | "instagram" | "youtube" | "discord" | "slack" | "tiktok" | "apple" | "microsoft" | "shopify" | "stripe" | "paypal" | "visa" | "mastercard" | "command" | "folder" | "database" | "monitor" | "tablet" | "phone" | "plus" | "minus" | "search" | "dashboard" | "chart" | "wallet" | "cart" | "bag" | "package" | "truck" | "receipt" | "tag" | "percent" | "creditCard" | "heartPlus" | "compare" | "return" | "warehouse" | "barcode" | "qr" | "coupon" | "gift" | "storefront" | "mapPin" | "headset" | "review" | "filter" | "sort" | "edit" | "trash" | "eye" | "eyeOff" | "mail" | "message" | "help" | "info" | "warning" | "success" | "clock" | "logout" | "refresh" | "activity" | "gauge" | "users";
 
 const paths: Record<IconName, ReactNode> = {
   spark: <><path d="M12 2.5 14.2 9l6.3 3-6.3 3-2.2 6.5L9.8 15 3.5 12l6.3-3Z" /><path d="m18.5 3 .6 2.1L21 6l-1.9.9-.6 2.1-.7-2.1L16 6l1.8-.9Z" /></>,
@@ -60,6 +60,41 @@ const paths: Record<IconName, ReactNode> = {
   activity: <><path d="M3 12h4l2-6 4 12 2-6h6" /></>,
   gauge: <><path d="M4 16a8 8 0 1 1 16 0" /><path d="M12 12l4-3M7 18h10" /></>,
   users: <><circle cx="9" cy="8" r="3" /><path d="M3 20a6 6 0 0 1 12 0M16 6.5a3 3 0 0 1 0 5.8M17 14a5 5 0 0 1 4 6" /></>,
+  google: <><path d="M21 12a9 9 0 1 1-2.6-6.4" /><path d="M21 5v6h-6" /></>,
+  x: <><path d="M5 4 19 20M19 4 5 20" /></>,
+  facebook: <><path d="M14 4h3V1h-3a5 5 0 0 0-5 5v3H6v3h3v8h4v-8h3l1-3h-4V6a2 2 0 0 1 1-2Z" /></>,
+  linkedin: <><rect x="4" y="4" width="16" height="16" rx="2" /><path d="M8 10v6M8 7.5v.01M12 16v-3.2a2.8 2.8 0 0 1 5.6 0V16M12 10v6" /></>,
+  instagram: <><rect x="3.5" y="3.5" width="17" height="17" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.5" cy="6.7" r=".8" /></>,
+  youtube: <><rect x="3" y="6" width="18" height="12" rx="3" /><path d="m10 9 5 3-5 3Z" /></>,
+  discord: <><path d="M7 8.5a14 14 0 0 1 10 0l2 8a14 14 0 0 1-4 2l-1-2M7 8.5l-2 8a14 14 0 0 0 4 2l1-2" /><circle cx="9" cy="13" r="1" /><circle cx="15" cy="13" r="1" /></>,
+  slack: <><path d="M9 4a2 2 0 1 1 2 2H9V4ZM4 9a2 2 0 1 1 2-2v2H4ZM15 20a2 2 0 1 1-2-2h2v2ZM20 15a2 2 0 1 1-2 2v-2h2ZM9 15H6a2 2 0 1 0 0 4h3v-4ZM15 9v3h4a2 2 0 1 0 0-4h-4v1ZM9 9v6h6V9H9Z" /></>,
+  tiktok: <><path d="M14 4v10a4 4 0 1 1-3-3.9" /><path d="M14 4c1 2 2.4 3 5 3" /></>,
+  apple: <><path d="M15.5 6.5c.8-1 1.3-2.2 1.2-3.5-1.3.1-2.7.8-3.5 1.8-.8.9-1.4 2.2-1.2 3.4 1.3.1 2.6-.7 3.5-1.7ZM17 12.5c0-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.8-1.5-.2-2.9.9-3.7.9-.8 0-2-.9-3.3-.9-1.7 0-3.2 1-4 2.5-1.7 3-.4 7.5 1.2 9.9.8 1.2 1.8 2.5 3.1 2.4 1.2-.1 1.7-.8 3.2-.8s2 .8 3.2.8c1.3 0 2.1-1.2 2.9-2.4.9-1.4 1.3-2.8 1.3-2.9-.1 0-2.5-1-2.5-4.2Z" /></>,
+  microsoft: <><rect x="3" y="3" width="8" height="8" /><rect x="13" y="3" width="8" height="8" /><rect x="3" y="13" width="8" height="8" /><rect x="13" y="13" width="8" height="8" /></>,
+  shopify: <><path d="m5 7 2-2 10 1 2 15H5Z" /><path d="M8 8c0-2 1-4 4-4 2 0 3 1 3 2M9 13c1-1 3-1 4 0 2 2-1 3-2 3-2 0-3-1-3-2" /></>,
+  stripe: <><path d="M4 7h16v10H4Z" /><path d="M8 12c2-2 5-1 6 0s3 2 3 0M8 15c2-2 5-1 6 0" /></>,
+  paypal: <><path d="M7 19 9 5h5c3 0 5 1.5 4.5 4S16 14 13 14h-2l-.8 5H7Z" /><path d="M11 14h2c3 0 5-1.5 5-4" /></>,
+  visa: <path d="M4 7h16M6 17l2-7 2 7M12 17l2-7 2 7M18 10l-1 7" />,
+  mastercard: <><circle cx="9" cy="12" r="5" /><circle cx="15" cy="12" r="5" /></>,
+  bag: <><path d="M5 8h14l1 13H4Z" /><path d="M9 8V6a3 3 0 0 1 6 0v2" /></>,
+  package: <><path d="m4 7 8-4 8 4v10l-8 4-8-4Z" /><path d="m4 7 8 4 8-4M12 11v10" /></>,
+  truck: <><path d="M3 6h11v11H3ZM14 10h4l3 3v4h-7Z" /><circle cx="7" cy="19" r="2" /><circle cx="18" cy="19" r="2" /></>,
+  receipt: <><path d="M5 3h14v18l-3-2-4 2-4-2-3 2Z" /><path d="M8 8h8M8 12h8M8 16h4" /></>,
+  tag: <><path d="m4 4 8-.5 8.5 8.5-8 8L4 12Z" /><circle cx="8" cy="8" r="1" /></>,
+  percent: <><path d="M5 19 19 5" /><circle cx="7" cy="7" r="2" /><circle cx="17" cy="17" r="2" /></>,
+  creditCard: <><rect x="3" y="5" width="18" height="14" rx="2" /><path d="M3 10h18M7 15h4" /></>,
+  heartPlus: <><path d="M20.8 8.8c0 5.4-8.8 10.5-8.8 10.5S3.2 14.2 3.2 8.8A4.8 4.8 0 0 1 12 6a4.8 4.8 0 0 1 8.8 2.8Z" /><path d="M17 3v5M14.5 5.5h5" /></>,
+  compare: <><path d="M7 4v16M4 7l3-3 3 3M17 20V4M14 17l3 3 3-3" /></>,
+  return: <><path d="M9 7H4v5" /><path d="M4 12c1.5-5 9-7 13-3s2 9-3 11" /><path d="M15 20h5" /></>,
+  warehouse: <><path d="m3 10 9-6 9 6v10H3Z" /><path d="M7 20v-6h10v6M7 10h10M9 10v3M12 10v3M15 10v3" /></>,
+  barcode: <><path d="M4 5v14M7 5v14M10 5v14M14 5v14M17 5v14M20 5v14" /></>,
+  qr: <><path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM15 15h2v2h-2zM19 15h1v5h-5v-2h4z" /></>,
+  coupon: <><path d="M4 6h16v4a2 2 0 0 0 0 4v4H4v-4a2 2 0 0 0 0-4Z" /><path d="M10 9v6M14 9v6" /></>,
+  gift: <><path d="M4 10h16v10H4Z" /><path d="M12 10v10M3 10h18M5 6h14v4H5Z" /><path d="M12 6H8.5a2.5 2.5 0 1 1 2.5-2.5C11 5 12 6 12 6ZM12 6h3.5A2.5 2.5 0 1 0 13 3.5C13 5 12 6 12 6Z" /></>,
+  storefront: <><path d="M4 10v10h16V10M3 10l2-6h14l2 6" /><path d="M3 10c1 2 3 2 4 0 1 2 3 2 4 0 1 2 3 2 4 0 1 2 3 2 4 0M9 20v-6h6v6" /></>,
+  mapPin: <><path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z" /><circle cx="12" cy="10" r="2" /></>,
+  headset: <><path d="M4 13v-1a8 8 0 0 1 16 0v1" /><path d="M4 13h3v6H5a1 1 0 0 1-1-1ZM20 13h-3v6h2a1 1 0 0 0 1-1Z" /><path d="M17 19c-1 2-3 2-5 2" /></>,
+  review: <><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-3-5.6 3 1.1-6.2L3 9.6l6.2-.9Z" /><path d="M8 21h8" /></>,
 };
 
 export function LuminaIcon({ name, size = 18, className = "", ...props }: SVGProps<SVGSVGElement> & { name: IconName; size?: number }) {

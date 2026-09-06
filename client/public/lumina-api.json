@@ -1,6 +1,6 @@
 {
-  "version": "0.7.0",
-  "bundles": ["lumina-core.css", "lumina-components.css", "lumina-interactions.css", "lumina-icons.css", "lumina-dashboard.css", "lumina-icons.js", "lumina-interactions.js", "lumina.js"],
+  "version": "0.8.0",
+  "bundles": ["lumina-core.css", "lumina-components.css", "lumina-interactions.css", "lumina-icons.css", "lumina-dashboard.css", "lumina-commerce.css", "lumina-icons.js", "lumina-interactions.js", "lumina.js"],
   "entries": [
     {"name":"lu-table-shell","kind":"class","group":"dashboard","description":"Responsive overflow shell for wide data tables on narrow screens."},
     {"name":"lu-table","kind":"class","group":"dashboard","description":"Accessible baseline table styling with headers, rows, and borders."},
@@ -21,6 +21,14 @@
     {"name":"data-lu-command-open","kind":"attribute","group":"interactions","description":"Opens a command palette selector."},
     {"name":"data-lu-icon","kind":"attribute","group":"icons","description":"Renders an inline SVG icon with LuminaIcons or the all-in-one runtime."},
     {"name":"data-lu-theme-toggle","kind":"attribute","group":"theme","description":"Toggles and persists light/dark theme state."},
-    {"name":"data-lu-grid-toggle","kind":"attribute","group":"theme","description":"Toggles and persists the documentation grid background."}
+    {"name":"data-lu-grid-toggle","kind":"attribute","group":"theme","description":"Toggles and persists the documentation grid background."},
+    {"name":"lu-product-grid","kind":"class","group":"commerce","description":"Responsive product-card grid for storefront collections."},
+    {"name":"lu-product-card","kind":"class","group":"commerce","description":"Merchandising surface with product media, price, rating, and action areas."},
+    {"name":"lu-cart-line","kind":"class","group":"commerce","description":"Responsive cart item row with quantity and pricing slots."},
+    {"name":"lu-checkout-shell","kind":"class","group":"commerce","description":"Two-column checkout structure that collapses for mobile."},
+    {"name":"lu-order-timeline","kind":"class","group":"commerce","description":"Order fulfillment progress pattern with complete and pending states."},
+    {"name":"lumina-commerce.css","kind":"bundle","group":"cdn","description":"Optional commerce bundle for storefronts, carts, and checkout surfaces."},
+    {"name":"google, github, shopify","kind":"icons","group":"brands","description":"Representational brand-reference icons; follow each owner’s brand rules."},
+    {"name":"cart, bag, package, truck, receipt","kind":"icons","group":"commerce","description":"Original commerce icon family for storefront and order flows."}
   ]
 }

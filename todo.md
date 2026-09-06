@@ -41,3 +41,9 @@
 - [x] Update documentation with verified v0.7.0 CDN URLs and modular bundle guidance.
 - [x] Add accessibility tests, mobile visual tests, and bundle-size checks.
 - [x] Test, publish, and deliver the Admin Kit release.
+- [ ] Define original social/brand icon coverage and attribution notes.
+- [ ] Add social, brand, commerce, shipping, payment, and storefront icons.
+- [ ] Add e-commerce card, pricing, product-grid, cart, checkout, and order-status primitives.
+- [ ] Add commerce typography stacks, theme presets, and stable unversioned CDN guidance.
+- [ ] Update documentation and API reference to stable `@main`/unversioned URLs.
+- [ ] Validate, publish, and deliver the commerce-ready release without changing stable import URLs.

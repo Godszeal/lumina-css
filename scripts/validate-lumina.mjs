@@ -11,6 +11,7 @@ const required = [
   "lumina-interactions.css",
   "lumina-icons.css",
   "lumina-dashboard.css",
+  "lumina-commerce.css",
   "lumina.js",
   "lumina-icons.js",
   "lumina-interactions.js",
@@ -34,6 +35,7 @@ for (const marker of ["prefers-reduced-motion", "@media(max-width", ".lu-table-s
 for (const marker of ["aria-label=", "aria-selected", "aria-modal", "Search workspaces", "Reset filters"]) {
   if (!home.includes(marker)) failures.push(`missing accessibility/dashboard marker: ${marker}`);
 }
+if (home.includes("@v0.")) failures.push("documentation still contains a versioned CDN import");
 if (failures.length) {
   console.error("\nLumina validation failed:");
   failures.forEach((failure) => console.error(`- ${failure}`));
