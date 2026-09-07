@@ -1,7 +1,15 @@
 {
-  "version": "0.8.0",
+  "version": "0.9.0",
   "bundles": ["lumina-core.css", "lumina-components.css", "lumina-interactions.css", "lumina-icons.css", "lumina-dashboard.css", "lumina-commerce.css", "lumina-icons.js", "lumina-interactions.js", "lumina.js"],
   "entries": [
+    {"name":"lu-checkout","kind":"class","group":"commerce","description":"Responsive checkout flow shell with cart, delivery, payment, summary, and confirmation states."},
+    {"name":"lu-quantity","kind":"class","group":"commerce","description":"Touch-friendly quantity control for cart line items."},
+    {"name":"lu-choice","kind":"class","group":"commerce","description":"Radio-card delivery or payment choice with selected state."},
+    {"name":"lu-coupon-row","kind":"class","group":"commerce","description":"Coupon input and validation action row."},
+    {"name":"data-lu-cart-add","kind":"data","group":"commerce","description":"Adds a product to the persistent local cart when used with lumina.js."},
+    {"name":"data-lu-qty","kind":"data","group":"commerce","description":"Applies quantity deltas to a persistent local cart item."},
+    {"name":"data-lu-coupon-form","kind":"data","group":"commerce","description":"Validates the LUMINA10 demo coupon and exposes valid or invalid state."},
+    {"name":"data-lu-checkout-submit","kind":"data","group":"commerce","description":"Runs local demo checkout validation and confirmation state."},
     {"name":"lu-table-shell","kind":"class","group":"dashboard","description":"Responsive overflow shell for wide data tables on narrow screens."},
     {"name":"lu-table","kind":"class","group":"dashboard","description":"Accessible baseline table styling with headers, rows, and borders."},
     {"name":"lu-table-fixed","kind":"class","group":"dashboard","description":"Predictable fixed column geometry for dashboards."},

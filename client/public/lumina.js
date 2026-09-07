@@ -114,9 +114,31 @@
     root.querySelectorAll('[data-lu-dropdown-trigger]').forEach(function (button) { button.addEventListener('click', function () { var dropdown = button.closest('[data-lu-dropdown]'); if (!dropdown) return; var open = dropdown.dataset.luOpen === 'true'; root.querySelectorAll('[data-lu-dropdown][data-lu-open="true"]').forEach(function (item) { item.dataset.luOpen = 'false'; }); dropdown.dataset.luOpen = open ? 'false' : 'true'; button.setAttribute('aria-expanded', open ? 'false' : 'true'); }); });
     root.querySelectorAll('[data-lu-modal-open]').forEach(function (button) { button.addEventListener('click', function () { var modal = document.querySelector(button.dataset.luModalOpen); if (!modal) return; modal.dataset.luOpen = 'true'; modal.setAttribute('aria-hidden', 'false'); document.body.style.overflow = 'hidden'; var close = modal.querySelector('[data-lu-modal-close]'); if (close) close.focus(); }); });
     root.querySelectorAll('[data-lu-modal-close]').forEach(function (button) { button.addEventListener('click', function () { var modal = button.closest('[data-lu-modal]'); if (!modal) return; modal.dataset.luOpen = 'false'; modal.setAttribute('aria-hidden', 'true'); document.body.style.overflow = ''; }); });
+    checkout(root);
+  }
+  function checkout(root) {
+    var host = root.querySelector('[data-lu-checkout]');
+    if (!host) return;
+    var key = 'lu-cart';
+    var cart = {};
+    try { cart = JSON.parse(localStorage.getItem(key) || '{}'); } catch (error) { cart = {}; }
+    function money(value) { return '$' + Number(value || 0).toFixed(2); }
+    function refresh() {
+      var subtotal = 0; var count = 0;
+      Object.keys(cart).forEach(function (id) { var item = cart[id]; count += item.qty; subtotal += item.qty * item.price; root.querySelectorAll('[data-lu-cart-item="' + id + '"]').forEach(function (node) { node.dataset.luQty = item.qty; node.textContent = item.qty; }); });
+      root.querySelectorAll('[data-lu-cart-count]').forEach(function (node) { node.textContent = count; });
+      root.querySelectorAll('[data-lu-cart-subtotal]').forEach(function (node) { node.textContent = money(subtotal); });
+      localStorage.setItem(key, JSON.stringify(cart));
+    }
+    root.querySelectorAll('[data-lu-cart-add]').forEach(function (button) { button.addEventListener('click', function () { var id = button.dataset.luCartAdd; cart[id] = cart[id] || { qty: 0, price: Number(button.dataset.luPrice || 0), name: button.dataset.luName || id }; cart[id].qty += 1; refresh(); }); });
+    root.querySelectorAll('[data-lu-qty]').forEach(function (button) { button.addEventListener('click', function () { var id = button.dataset.luItem; var delta = Number(button.dataset.luDelta || 0); if (!cart[id]) return; cart[id].qty = Math.max(0, cart[id].qty + delta); if (!cart[id].qty) delete cart[id]; refresh(); }); });
+    root.querySelectorAll('[data-lu-coupon-form]').forEach(function (form) { form.addEventListener('submit', function (event) { event.preventDefault(); var input = form.querySelector('[data-lu-coupon]'); var message = form.querySelector('[data-lu-coupon-message]'); var valid = input && input.value.trim().toUpperCase() === 'LUMINA10'; if (message) { message.textContent = valid ? 'Coupon applied — 10% off.' : 'Coupon not recognized.'; message.dataset.luCouponState = valid ? 'valid' : 'invalid'; } host.dataset.luDiscount = valid ? '10' : '0'; }); });
+    root.querySelectorAll('[data-lu-shipping]').forEach(function (choice) { choice.addEventListener('change', function () { host.dataset.luShippingSelected = choice.value; }); });
+    root.querySelectorAll('[data-lu-checkout-submit]').forEach(function (button) { button.addEventListener('click', function () { var email = root.querySelector('[data-lu-checkout-email]'); var card = root.querySelector('[data-lu-checkout-card]'); var message = root.querySelector('[data-lu-checkout-message]'); var valid = email && email.value.includes('@') && card && card.value.replace(/\\s/g, '').length >= 12; host.dataset.luCheckoutState = valid ? 'success' : 'error'; if (message) message.textContent = valid ? 'Order confirmed. Your receipt is ready.' : 'Add a valid email and payment number to continue.'; }); });
+    refresh();
   }
   document.addEventListener('keydown', function (event) { if (event.key === 'Escape') { document.querySelectorAll('[data-lu-dropdown][data-lu-open="true"]').forEach(function (item) { item.dataset.luOpen = 'false'; }); document.querySelectorAll('[data-lu-modal][data-lu-open="true"]').forEach(function (modal) { modal.dataset.luOpen = 'false'; modal.setAttribute('aria-hidden', 'true'); document.body.style.overflow = ''; }); } });
   document.addEventListener('click', function (event) { var target = event.target; if (!target.closest('[data-lu-dropdown]')) document.querySelectorAll('[data-lu-dropdown][data-lu-open="true"]').forEach(function (item) { item.dataset.luOpen = 'false'; }); });
-  global.Lumina = { boot: boot, icon: icon, icons: Object.keys(paths), version: '0.8.0' };
+  global.Lumina = { boot: boot, icon: icon, icons: Object.keys(paths), version: '0.9.0' };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () { boot(); }); else boot();
 })(window);

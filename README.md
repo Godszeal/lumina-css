@@ -112,3 +112,25 @@ https://cdn.jsdelivr.net/gh/Godszeal/lumina-css/client/public/lumina-api.json
 ```
 
 Run `pnpm validate:lumina` to check required assets, bundle sizes, responsive CSS markers, and common accessibility markers before publishing. The unversioned URLs above track the published `main` branch so application imports do not need to change on every release. For reproducible builds, use a version tag such as `@v0.8.0` explicitly.
+
+
+## v0.9.0 Checkout interaction layer
+
+The commerce bundle now includes a complete checkout interaction layer with a persistent local cart, quantity controls, coupon validation, shipping choices, payment-field validation, order summaries, confirmation states, and recovery messaging. The demo coupon is `LUMINA10`; the preview is local-only and does not submit payment.
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Godszeal/lumina-css/client/public/lumina-commerce.css">
+<script defer src="https://cdn.jsdelivr.net/gh/Godszeal/lumina-css/client/public/lumina.js"></script>
+
+<div class="lu-checkout" data-lu-checkout>
+  <button data-lu-cart-add="bag" data-lu-price="84">Add to cart</button>
+  <button data-lu-qty data-lu-item="bag" data-lu-delta="1">+</button>
+  <form data-lu-coupon-form>
+    <input data-lu-coupon placeholder="LUMINA10">
+    <button type="submit">Apply</button>
+    <output data-lu-coupon-message></output>
+  </form>
+</div>
+```
+
+Stable unversioned CDN imports remain unchanged and track the published `main` branch. The reproducible tag for this release is `@v0.9.0`.
