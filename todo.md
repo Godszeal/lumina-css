@@ -47,9 +47,9 @@
 - [x] Add commerce typography stacks, theme presets, and stable unversioned CDN guidance.
 - [x] Update documentation and API reference to stable `@main`/unversioned URLs.
 - [x] Validate, publish, and deliver the commerce-ready release without changing stable import URLs.
-- [ ] Define checkout cart, coupon, shipping, payment, and confirmation state contracts.
-- [ ] Add checkout CSS primitives and stable commerce runtime behavior.
-- [ ] Add interactive checkout preview with cart state and quantity controls.
-- [ ] Add coupon validation, shipping/payment choices, order summary, confirmation, and error states.
-- [ ] Add responsive mobile checkout behavior and automated validation.
-- [ ] Publish the stable CDN update without changing existing import URLs.
+- [x] Define checkout cart, coupon, shipping, payment, and confirmation state contracts.
+- [x] Add checkout CSS primitives and stable commerce runtime behavior.
+- [x] Add interactive checkout preview with cart state and quantity controls.
+- [x] Add coupon validation, shipping/payment choices, order summary, confirmation, and error states.
+- [x] Add responsive mobile checkout behavior and automated validation.
+- [x] Publish the stable CDN update without changing existing import URLs.
