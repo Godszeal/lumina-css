@@ -134,3 +134,24 @@ The commerce bundle now includes a complete checkout interaction layer with a pe
 ```
 
 Stable unversioned CDN imports remain unchanged and track the published `main` branch. The reproducible tag for this release is `@v0.9.0`.
+
+
+## Research-backed improvements
+
+Lumina’s current API includes original container-query-ready surfaces, density tokens, safe-area helpers, logical spacing, native-control recipes, explicit state contracts, combobox/disclosure/dialog patterns, focus-group helpers, forced-colors support, and stronger dashboard resilience. These additions were synthesized from public design-system guidance rather than copied CSS.
+
+| Pattern family | Lumina implementation |
+|---|---|
+| Foundations and tokens | `lu-surface`, density tokens, safe-area helpers, logical spacing, and custom-property contracts. |
+| Native controls | `lu-disclosure`, `lu-combobox`, `lu-dialog`, `lu-focusgroup`, and state attributes. |
+| Enterprise surfaces | Compact density, status semantics, high-contrast behavior, resilient table/layout patterns, and release/migration documentation. |
+| Quality | Reduced-motion rules, visible focus, explicit `aria-*`/`data-lu-*` states, responsive fallbacks, and validation scripts. |
+
+Sources were used for public concepts and documentation structure only. Lumina does not redistribute USWDS, Carbon, PatternFly, Open UI, Tailwind, Bootstrap, or Font Awesome source code, styles, or proprietary brand assets.
+
+### Research references
+
+1. [USWDS](https://designsystem.digital.gov/) — components, patterns, design tokens, utilities, and accessible mobile-friendly guidance.
+2. [Carbon Design System](https://carbondesignsystem.com/) — open-source design-system organization, component libraries, themes, patterns, and migration guidance.
+3. [PatternFly](https://www.patternfly.org/) — enterprise components, foundations, accessibility, developer guides, and release practices.
+4. [Open UI](https://open-ui.org/) — component parts, states, behaviors, accessibility requirements, and test-suite concepts.

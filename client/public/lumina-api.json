@@ -1,7 +1,14 @@
 {
-  "version": "0.9.0",
+  "version": "1.0.0",
   "bundles": ["lumina-core.css", "lumina-components.css", "lumina-interactions.css", "lumina-icons.css", "lumina-dashboard.css", "lumina-commerce.css", "lumina-icons.js", "lumina-interactions.js", "lumina.js"],
   "entries": [
+    {"name":"lu-surface","kind":"class","group":"core","description":"Container-query-ready surface for component-level responsive layouts."},
+    {"name":"lu-density-compact","kind":"class","group":"core","description":"Compact density token for dashboard and data-heavy interfaces."},
+    {"name":"lu-safe-area","kind":"class","group":"core","description":"Safe-area padding helper for mobile browser and device insets."},
+    {"name":"lu-disclosure","kind":"class","group":"components","description":"Native details/summary disclosure treatment with explicit open state."},
+    {"name":"lu-combobox","kind":"class","group":"components","description":"Accessible combobox shell with open, option, and selection states."},
+    {"name":"lu-dialog","kind":"class","group":"interactions","description":"Modal dialog surface with explicit data-lu-open state and reduced-motion behavior."},
+    {"name":"lu-focusgroup","kind":"class","group":"interactions","description":"Focus-group layout helper for compact control clusters."},
     {"name":"lu-checkout","kind":"class","group":"commerce","description":"Responsive checkout flow shell with cart, delivery, payment, summary, and confirmation states."},
     {"name":"lu-quantity","kind":"class","group":"commerce","description":"Touch-friendly quantity control for cart line items."},
     {"name":"lu-choice","kind":"class","group":"commerce","description":"Radio-card delivery or payment choice with selected state."},

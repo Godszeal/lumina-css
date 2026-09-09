@@ -139,6 +139,6 @@
   }
   document.addEventListener('keydown', function (event) { if (event.key === 'Escape') { document.querySelectorAll('[data-lu-dropdown][data-lu-open="true"]').forEach(function (item) { item.dataset.luOpen = 'false'; }); document.querySelectorAll('[data-lu-modal][data-lu-open="true"]').forEach(function (modal) { modal.dataset.luOpen = 'false'; modal.setAttribute('aria-hidden', 'true'); document.body.style.overflow = ''; }); } });
   document.addEventListener('click', function (event) { var target = event.target; if (!target.closest('[data-lu-dropdown]')) document.querySelectorAll('[data-lu-dropdown][data-lu-open="true"]').forEach(function (item) { item.dataset.luOpen = 'false'; }); });
-  global.Lumina = { boot: boot, icon: icon, icons: Object.keys(paths), version: '0.9.0' };
+  global.Lumina = { boot: boot, icon: icon, icons: Object.keys(paths), version: '1.0.0' };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () { boot(); }); else boot();
 })(window);
